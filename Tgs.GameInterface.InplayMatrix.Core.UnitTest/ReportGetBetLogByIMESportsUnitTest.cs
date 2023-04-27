@@ -24,8 +24,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
@@ -80,8 +80,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
@@ -207,8 +207,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
@@ -372,8 +372,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
@@ -557,8 +557,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
@@ -695,8 +695,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
@@ -831,8 +831,8 @@ public class ReportGetBetLogByIMESportsUnitTest
         var request = new
         {
             MerchantCode = merchantCode,
-            StartDate = startDate.ToDateTimeString(),
-            EndDate = endDate.ToDateTimeString(),
+            StartDate = startDate.DatetimeConvertToString(),
+            EndDate = endDate.DatetimeConvertToString(),
             Page = page,
             ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
             DateFilterType = DateFilterType.IMESportsLastUpdatedTime,

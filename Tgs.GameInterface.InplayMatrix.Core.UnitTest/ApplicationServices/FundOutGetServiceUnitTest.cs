@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NSubstitute;
+﻿using NSubstitute;
 using Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 using Tgs.GameInterface.InplayMatrix.Core.Extensions;
 using Tgs.GameInterface.InplayMatrix.Core.Models;

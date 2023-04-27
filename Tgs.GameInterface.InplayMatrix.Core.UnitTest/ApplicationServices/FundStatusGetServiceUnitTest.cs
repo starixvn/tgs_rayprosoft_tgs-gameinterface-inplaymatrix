@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NSubstitute;
+﻿using NSubstitute;
 using Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 using Tgs.GameInterface.InplayMatrix.Core.Extensions;
-using Tgs.GameInterface.InplayMatrix.Core.Models;
 
 namespace Tgs.GameInterface.InplayMatrix.Core.UnitTest.ApplicationServices;
 
@@ -24,7 +18,6 @@ public class FundStatusGetServiceUnitTest
             PlayerCode: "4ucmqplxb029",
             ProductWallet: 401,
             TransactionId: Guid.NewGuid().ToString("N"));
-
 
         _ = fakeGameApiClient
              .TransactionCheckTransferStatus(

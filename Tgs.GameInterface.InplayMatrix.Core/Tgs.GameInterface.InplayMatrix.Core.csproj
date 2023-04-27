@@ -16,4 +16,8 @@
 		<PackageReference Include="TGS.ServiceUtility" Version="0.2.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Tgs.GameInterface.InplayMatrix.Common\Tgs.GameInterface.InplayMatrix.Common.csproj" />
+	</ItemGroup>
+
 </Project>

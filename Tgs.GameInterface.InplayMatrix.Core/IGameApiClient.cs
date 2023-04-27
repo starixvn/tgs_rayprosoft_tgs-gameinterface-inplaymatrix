@@ -52,15 +52,12 @@ public interface IGameApiClient
         string password,
         CancellationToken cancellationToken = default);
 
-    public ValueTask<ReportGetBetLogResult> ReportGetBetLogAsync(
+    public IAsyncEnumerable<ReportGetBetLogByIMESportsResult> ReportGetBetLogByIMESportsAsync(
         Uri apiUrl,
         string merchantCode,
         DateTimeOffset startDate,
         DateTimeOffset endDate,
-        int Page,
-        int productWallet,
-        DateFilterType dateFilterType,
-        BetStatus betStatus,
+        int page = 1,
         CancellationToken cancellationToken = default);
 
     public ValueTask<bool> TransactionCheckTransferStatus(

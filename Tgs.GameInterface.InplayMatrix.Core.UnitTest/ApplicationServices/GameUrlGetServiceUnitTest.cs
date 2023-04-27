@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using NSubstitute;
+﻿using NSubstitute;
 using Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 using Tgs.GameInterface.InplayMatrix.Core.Extensions;
 using Tgs.GameInterface.InplayMatrix.Core.Models;

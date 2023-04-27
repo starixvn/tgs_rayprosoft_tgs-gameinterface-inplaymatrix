@@ -11,6 +11,9 @@ public static class StringExtension
         return TimeZoneInfo.ConvertTime(dateTime.ToUniversalTime(), timeZone).ToString("yyyy-MM-dd HH:mm:ss");
     }
 
+    public static string ToPlayerCode(this string playerId, string Prefix)
+        => playerId.Replace($"{Prefix}_", string.Empty);
+
     public static string ToPlayerid(this string playerCode, string Prefix)
-        => $"{Prefix}_{playerCode}";
+            => $"{Prefix}_{playerCode}";
 }

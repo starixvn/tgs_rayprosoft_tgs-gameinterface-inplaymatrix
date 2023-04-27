@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
+using Tgs.GameInterface.InplayMatrix.Common;
 using Tgs.GameInterface.InplayMatrix.Core.Exceptions;
 using Tgs.GameInterface.InplayMatrix.Core.Extensions;
 using Tgs.GameInterface.InplayMatrix.Core.Models;
@@ -209,16 +211,73 @@ internal class GameApiClient : IGameApiClient
         }
     }
 
-    public ValueTask<ReportGetBetLogResult> ReportGetBetLogAsync(
+    public async IAsyncEnumerable<ReportGetBetLogByIMESportsResult> ReportGetBetLogByIMESportsAsync(
         Uri apiUrl,
         string merchantCode,
         DateTimeOffset startDate,
         DateTimeOffset endDate,
-        int Page,
-        int productWallet,
-        DateFilterType dateFilterType,
-        BetStatus betStatus,
-        CancellationToken cancellationToken = default) => throw new NotImplementedException();
+        int page = 1,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        var request = new
+        {
+            MerchantCode = merchantCode,
+            StartDate = startDate.ToDateTimeString(),
+            EndDate = endDate.ToDateTimeString(),
+            Page = page,
+            ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
+            DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
+            Language = "EN"
+        };
+
+        var jsonNode = await PostAsync(
+                apiUrl: apiUrl,
+                path: "Report/GetBetLog",
+                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+                logPrefix: "ResetPassword",
+                cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase))
+        {
+            if (jsonNode["Code"]!.GetValue<string>().Equals("558", StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogDebug("{message}({json})", jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+                yield break;
+            }
+            throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+        }
+
+        var result = jsonNode["Result"]!.AsArray();
+        if (!result.Any())
+        {
+            yield break;
+        }
+
+        foreach (var data in result)
+        {
+            if (data is null)
+            {
+                continue;
+            }
+
+            yield return new ReportGetBetLogByIMESportsResult(
+                    GameID: data["GameId"]!.GetValue<string>(),
+                    BetId: data["BetId"]!.GetValue<string>(),
+                    WagerCreationDateTime: data["WagerCreationDateTime"]!.GetValue<string>().StringConvertToDatetime(),
+                    LastUpdatedDate: data["LastUpdatedDate"]!.GetValue<string>().StringConvertToDatetime(),
+                    PlayerId: data["PlayerId"]!.GetValue<string>(),
+                    StakeAmount: decimal.Parse(data["StakeAmount"]!.GetValue<string>()),
+                    WinLoss: decimal.Parse(data["WinLoss"]!.GetValue<string>()),
+                    IsSettled: data["IsSettled"]!.GetValue<string>(),
+                    IsResettled: data["IsResettled"]!.GetValue<string>(),
+                    IsCancelled: data["IsCancelled"]!.GetValue<string>(),
+                    SettlementDateTime: (string.IsNullOrEmpty(data["SettlementDateTime"]!.GetValue<string>()))
+                        ? null
+                        : data["SettlementDateTime"]!.GetValue<string>().StringConvertToDatetime(),
+                    AdditionalData: data.ToJsonString()); ;
+        }
+    }
 
     public async ValueTask<bool> TransactionCheckTransferStatus(
         Uri apiUrl,

@@ -1,5 +1,4 @@
 ﻿using Tgs.GameInterface.InplayMatrix.Core.Extensions;
-using Tgs.GameInterface.InplayMatrix.Core.Models;
 using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;

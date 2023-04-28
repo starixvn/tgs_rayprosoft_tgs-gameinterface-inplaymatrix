@@ -5,7 +5,7 @@ using Tgs.GameInterface.InplayMatrix.Core.Models;
 
 namespace Tgs.GameInterface.InplayMatrix.Core.UnitTest.ApplicationServices;
 
-public class GameRecordQueryServiceUnitTest
+public class GameRecordByIMESportsQueryServiceUnitTest
 {
     [Fact]
     public async Task Normal_Process_Cancelled()
@@ -63,7 +63,7 @@ public class GameRecordQueryServiceUnitTest
         Assert.True(actual.Single().IsSettled);
         Assert.True(actual.Single().IsCancelled);
         Assert.False(actual.Single().IsResettled);
-        Assert.Equal("2023-04-27 15:59:47 +08:00".StringConvertToDatetime(), actual.Single().ExternalClosedOn);
+        Assert.Equal(DateTimeOffset.Parse("2023-04-27T15:59:47+08:00"), actual.Single().ExternalClosedOn);
         Assert.Equal(5m, actual.Single().Bet);
         Assert.Equal(0m, actual.Single().Settle);
         Assert.Equal(0m, actual.Single().WinLoss);
@@ -240,7 +240,7 @@ public class GameRecordQueryServiceUnitTest
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
         Assert.False(actual.Single().IsResettled);
-        Assert.Equal(DateTimeOffset.Parse("2023-04-27 17:29:08 +08:00"), actual.Single().ExternalClosedOn);
+        Assert.Equal(DateTimeOffset.Parse("2023-04-27T17:29:08+08:00"), actual.Single().ExternalClosedOn);
         Assert.Equal(5m, actual.Single().Bet);
         Assert.Equal(171.199997m, actual.Single().Settle);
         Assert.Equal(166.199997m, actual.Single().WinLoss);
@@ -302,7 +302,7 @@ public class GameRecordQueryServiceUnitTest
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
         Assert.True(actual.Single().IsResettled);
-        Assert.Equal("2023-04-27 16:19:37 +08:00".StringConvertToDatetime(), actual.Single().ExternalClosedOn);
+        Assert.Equal(DateTimeOffset.Parse("2023-04-27T16:19:37+08:00"), actual.Single().ExternalClosedOn);
         Assert.Equal(5m, actual.Single().Bet);
         Assert.Equal(69.760002m, actual.Single().Settle);
         Assert.Equal(64.760002m, actual.Single().WinLoss);
@@ -364,7 +364,7 @@ public class GameRecordQueryServiceUnitTest
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
         Assert.False(actual.Single().IsResettled);
-        Assert.Equal("2023-04-27 14:12:34 +08:00".StringConvertToDatetime(), actual.Single().ExternalClosedOn);
+        Assert.Equal(DateTimeOffset.Parse("2023-04-27T14:12:34+08:00"), actual.Single().ExternalClosedOn);
         Assert.Equal(5m, actual.Single().Bet);
         Assert.Equal(0m, actual.Single().Settle);
         Assert.Equal(-5m, actual.Single().WinLoss);
@@ -426,7 +426,7 @@ public class GameRecordQueryServiceUnitTest
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
         Assert.False(actual.Single().IsResettled);
-        Assert.Equal("2023-04-27 14:08:13 +08:00".StringConvertToDatetime(), actual.Single().ExternalClosedOn);
+        Assert.Equal(DateTimeOffset.Parse("2023-04-27T14:08:13+08:00"), actual.Single().ExternalClosedOn);
         Assert.Equal(5m, actual.Single().Bet);
         Assert.Equal(8.005m, actual.Single().Settle);
         Assert.Equal(3.005000m, actual.Single().WinLoss);

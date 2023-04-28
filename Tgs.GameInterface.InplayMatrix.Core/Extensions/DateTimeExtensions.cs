@@ -2,21 +2,22 @@
 
 public static class DateTimeExtensions
 {
-    private static readonly TimeZoneInfo _TimeZone = TimeZoneInfo.CreateCustomTimeZone(id: "eastern time", baseUtcOffset: TimeSpan.FromHours(+8), "China Standard Time", "eastern time");
-
     public static string DatetimeConvertToString(this DateTimeOffset date)
     {
-        return TimeZoneInfo.ConvertTime(date.ToUniversalTime(), _TimeZone).ToString("yyyy-MM-dd HH.mm.ss");
+        var _timeZone = TimeZoneInfo.CreateCustomTimeZone(id: "China Standard Time", baseUtcOffset: TimeSpan.FromHours(+8), "China Standard Time", "eastern time");
+        return TimeZoneInfo.ConvertTime(date.ToUniversalTime(), _timeZone).ToString("yyyy-MM-dd HH.mm.ss");
     }
 
     public static DateTimeOffset StringConvertToDatetime(this string str)
     {
+        var _timeZone = TimeZoneInfo.CreateCustomTimeZone(id: "China Standard Time", baseUtcOffset: TimeSpan.FromHours(+8), "China Standard Time", "eastern time");
+
         if (string.IsNullOrEmpty(str))
         {
             return DateTime.UnixEpoch;
         }
         var date = DateTime.Parse(str);
 
-        return new DateTimeOffset(date, _TimeZone.GetUtcOffset(date));
+        return new DateTimeOffset(date, _timeZone.GetUtcOffset(date));
     }
 }

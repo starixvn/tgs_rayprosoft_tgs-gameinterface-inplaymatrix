@@ -193,6 +193,7 @@ public class ReportGetBetLogByIMESportsUnitTest
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("1", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
+        Assert.NotNull(actual.Single().SettlementDateTime);
     }
 
     [Fact]
@@ -358,6 +359,7 @@ public class ReportGetBetLogByIMESportsUnitTest
         Assert.Equal("0", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
+        Assert.Null(actual.Single().SettlementDateTime);
     }
 
     [Fact]
@@ -543,6 +545,7 @@ public class ReportGetBetLogByIMESportsUnitTest
         Assert.Equal("0", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
+        Assert.Null(actual.Single().SettlementDateTime);
     }
 
     [Fact]
@@ -943,5 +946,6 @@ public class ReportGetBetLogByIMESportsUnitTest
         Assert.Equal("0", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
+        Assert.Null(actual.Single().SettlementDateTime);
     }
 }

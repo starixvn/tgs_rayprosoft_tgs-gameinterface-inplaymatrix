@@ -10,14 +10,6 @@ public static class DateTimeExtensions
 
     public static DateTimeOffset StringConvertToDatetime(this string str)
     {
-        var _timeZone = TimeZoneInfo.CreateCustomTimeZone(id: "China Standard Time", baseUtcOffset: TimeSpan.FromHours(+8), "China Standard Time", "eastern time");
-
-        if (string.IsNullOrEmpty(str))
-        {
-            return DateTime.UnixEpoch;
-        }
-        var date = DateTime.Parse(str);
-
-        return new DateTimeOffset(date, _timeZone.GetUtcOffset(date));
+        return DateTimeOffset.Parse(str);
     }
 }

@@ -212,7 +212,7 @@ internal class GameApiClient : IGameApiClient
     }
 
     public async IAsyncEnumerable<ReportGetBetLogByIMESportsResult> ReportGetBetLogByIMESportsAsync(
-        Uri apiUrl,
+        Uri reportUrl,
         string merchantCode,
         DateTimeOffset startDate,
         DateTimeOffset endDate,
@@ -231,7 +231,7 @@ internal class GameApiClient : IGameApiClient
         };
 
         var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
+                apiUrl: reportUrl,
                 path: "Report/GetBetLog",
                 parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
                 logPrefix: "ResetPassword",

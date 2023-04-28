@@ -1,0 +1,127 @@
+﻿syntax = "proto3";
+
+import "phoenix/protobuf/decimal.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Tgs.GameInterface.InplayMatrix.Protos";
+
+package gameinterfaceinplaymatrix;
+
+// The greeting service definition.
+service GameInterfaceInplayMatrix {
+  // Sends a greeting
+  rpc PlayerCreate (PlayerCreateRequest) returns (BaseReply);
+  rpc PlayerBalance (PlayerBalanceRequest) returns (PlayerBalanceReply);
+  rpc FundIn (FundRequest) returns (FundReply);
+  rpc FundOut (FundRequest) returns (FundReply);
+  rpc FundStatus(FundStatusRequest) returns (BaseReply);
+  rpc GameUrl (GameUrlRequest) returns (GameUrlReply);
+  rpc GameRecordByIMESports (GameRecordByIMESportsRequest) returns (GameRecordByIMESportsReply);
+  rpc CheckingService(CheckingServiceRequest) returns (CheckingServiceReply);
+}
+
+// The request message containing the user's name.
+message PlayerCreateRequest {
+	string api_url = 1;
+	string merchant_code = 2;
+	string merchant_prefix = 3;
+	string player_code = 4;
+    string currency = 5;
+    string password = 6;
+}
+
+message PlayerBalanceRequest {
+	string api_url = 1;
+	string merchant_code = 2;
+	string merchant_prefix = 3;
+	string player_code = 4;
+	int32 product_wallet = 5;
+}
+
+message FundRequest {
+	string api_url = 1;
+	string merchant_code = 2;
+	string merchant_prefix = 3;
+	string player_code = 4;
+	int32 product_wallet = 5;
+	string transaction_id = 6;
+	phoenix.protobuf.DecimalValue amount = 7;
+}
+
+message FundStatusRequest {
+	string api_url = 1;
+	string merchant_code = 2;
+	string merchant_prefix = 3;
+	string player_code = 4;
+	int32 product_wallet = 5;
+	string transaction_id = 6;
+}
+
+message GameUrlRequest {
+	string api_url = 1;
+	string merchant_code = 2;
+	string merchant_prefix = 3;
+	string player_code = 4;
+	int32 product_wallet = 5;
+	string game_code = 6;
+	string ip_address = 7;
+	bool is_mobile = 8;
+	string language = 9;
+}
+
+message GameRecordByIMESportsRequest {
+	string report_url = 1;
+	string merchant_code = 2;
+	string merchant_prefix = 3;
+	google.protobuf.Timestamp start_date = 4;
+	google.protobuf.Timestamp end_date = 5;
+	int32 page = 6;
+
+}
+
+message CheckingServiceRequest{
+    string machine_name = 1;
+}
+
+// The response message containing the greetings.
+message BaseReply {
+	bool state = 1;
+}
+
+message PlayerBalanceReply {
+	bool is_player_exist = 1;
+	phoenix.protobuf.DecimalValue balance = 2;
+}
+
+message FundReply {
+	string transaction_id = 1;
+	string res = 2;
+}
+
+message GameUrlReply{
+	bool is_player_exist = 1;
+	string game_url = 2;
+}
+
+message GameRecordByIMESportsReply {
+	repeated GameRecordByIMESportsInfo items = 1;
+}
+
+message GameRecordByIMESportsInfo {
+	string external_round_id = 1;
+	string external_game_id = 2;
+    string player_code = 3;
+	bool is_settled = 4;
+	bool is_cancelled = 5;
+	bool is_resettled = 6;
+	google.protobuf.Timestamp external_created_on = 7;
+	google.protobuf.Timestamp external_closed_on = 8;
+	phoenix.protobuf.DecimalValue bet = 9;
+	phoenix.protobuf.DecimalValue settle = 10;
+	phoenix.protobuf.DecimalValue win_loss = 11;
+	string additional_data = 12;
+}
+
+message CheckingServiceReply{
+    string machine_name = 1;
+}

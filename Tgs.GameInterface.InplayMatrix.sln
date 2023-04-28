@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.InplayMat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.InplayMatrix.Core.UnitTest", "Tgs.GameInterface.InplayMatrix.Core.UnitTest\Tgs.GameInterface.InplayMatrix.Core.UnitTest.csproj", "{8C94BFEE-604B-462D-B665-0FCE735EDEA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.InplayMatrix.Common", "Tgs.GameInterface.InplayMatrix.Common\Tgs.GameInterface.InplayMatrix.Common.csproj", "{CE2F1D13-7861-4E89-9F42-AF368CD12C73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.InplayMatrix.Common", "Tgs.GameInterface.InplayMatrix.Common\Tgs.GameInterface.InplayMatrix.Common.csproj", "{CE2F1D13-7861-4E89-9F42-AF368CD12C73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.InplayMatrix.Client", "Tgs.GameInterface.InplayMatrix.Client\Tgs.GameInterface.InplayMatrix.Client.csproj", "{46C04964-D403-41C2-84BF-B5DD692CF9CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CE2F1D13-7861-4E89-9F42-AF368CD12C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE2F1D13-7861-4E89-9F42-AF368CD12C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE2F1D13-7861-4E89-9F42-AF368CD12C73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C04964-D403-41C2-84BF-B5DD692CF9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C04964-D403-41C2-84BF-B5DD692CF9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C04964-D403-41C2-84BF-B5DD692CF9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C04964-D403-41C2-84BF-B5DD692CF9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

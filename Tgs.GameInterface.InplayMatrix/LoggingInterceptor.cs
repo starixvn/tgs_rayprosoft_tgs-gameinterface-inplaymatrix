@@ -1,6 +1,5 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
-using Tgs.GameInterface.InplayMatrix;
 
 namespace Tgs.GameInterface.InplayMatrix;
 

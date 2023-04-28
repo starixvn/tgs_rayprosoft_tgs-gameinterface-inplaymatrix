@@ -20,7 +20,7 @@ internal class GameRecordByIMESportsQueryService : IQueryService<GameRecordByIME
     {
         var results = await _client
             .ReportGetBetLogByIMESportsAsync(
-                apiUrl: query.ApiUrl,
+                reportUrl: query.ReportUrl,
                 merchantCode: query.MerchantCode,
                 startDate: query.StartDate,
                 endDate: query.EndDate,

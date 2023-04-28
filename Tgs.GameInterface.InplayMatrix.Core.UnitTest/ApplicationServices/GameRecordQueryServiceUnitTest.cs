@@ -13,7 +13,7 @@ public class GameRecordQueryServiceUnitTest
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
         var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
             MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
             MerchantPrefix: "IM1S3",
             StartDate: DateTimeOffset.Parse("2023-04-27T15:56:00+08:00"),
@@ -39,7 +39,7 @@ public class GameRecordQueryServiceUnitTest
 
         _ = fakeGameApiClient
              .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
+                 reportUrl: Arg.Is(query.ReportUrl),
                  merchantCode: Arg.Is(query.MerchantCode),
                  startDate: Arg.Is(query.StartDate),
                  endDate: Arg.Is(query.EndDate),
@@ -70,12 +70,189 @@ public class GameRecordQueryServiceUnitTest
     }
 
     [Fact]
+    public async Task Normal_Process_ParlayAll()
+    {
+        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+
+        var query = new GameRecordByIMESportsQuery(
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+            MerchantPrefix: "IM1S3",
+            StartDate: DateTimeOffset.Parse("2023-04-27T16:33:00+08:00"),
+            EndDate: DateTimeOffset.Parse("2023-04-27T16:43:00+08:00"),
+            Page: 1);
+
+        var results = new ReportGetBetLogByIMESportsResult[]{
+            new ReportGetBetLogByIMESportsResult(
+                GameID: "432368345",
+                BetId: "ESPORTSBULL",
+                WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
+                LastUpdatedDate: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
+                PlayerId: "IM1S3_4ucmqplxb029",
+                StakeAmount: 5m,
+                WinLoss: 0m,
+                IsSettled: "0",
+                IsResettled: "0",
+                IsCancelled: "0",
+                SettlementDateTime: null,
+                AdditionalData: "{\"Provider\":\"ESPORTSBULL_ESPORTS\",\"GameId\":\"ESPORTSBULL\",\"BetId\":\"432368345\",\"WagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"LastUpdatedDate\":\"2023-04-27 16:33:07 +08:00\",\"PlayerId\":\"IM1S3_4ucmqplxb029\",\"ProviderPlayerId\":\"IM1S3IM1S3_4ucmqplxb029\",\"Currency\":\"CNY\",\"StakeAmount\":\"5.000000\",\"WinLoss\":\"0.000000\",\"OddsType\":\"EURO\",\"TotalOdds\":\"34.24\",\"WagerType\":\"ParlayAll\",\"Platform\":\"Web\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsCancelled\":\"0\",\"SettlementDateTime\":\"\",\"Tolerance\":\"255\",\"FlagCategory\":\"\",\"DetailItems\":[{\"ParlaySign\":\"\",\"EventName\":\"eSuba VS Team GO\",\"EventDateTime\":\"2023-04-29 00:00:00 +08:00\",\"CompetitionName\":\"EMEA Masters Spring 2023\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"eSuba\",\"AwayTeamName\":\"Team GO\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":45,\"SportsName\":\"LEAGUE OF LEGENDS\",\"BetType\":\"BO7 Series Win\",\"EventId\":\"12929906\",\"EventType\":\"BO7\",\"GameOrder\":\"0\",\"Selection\":\"eSuba\",\"Odds\":\"20.0\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"\",\"BaseTierID\":\"1\",\"BaseTierCode\":\"1\",\"BaseTierName\":\"Tier1\"},{\"ParlaySign\":\"\",\"EventName\":\"Astralis Talent VS Illuminar Gaming\",\"EventDateTime\":\"2023-04-27 17:00:00 +08:00\",\"CompetitionName\":\"CCT Central Europe Series #6\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"Astralis Talent\",\"AwayTeamName\":\"Illuminar Gaming\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":47,\"SportsName\":\"CS:GO\",\"BetType\":\"Game 3 Win\",\"EventId\":\"12957194\",\"EventType\":\"BO3\",\"GameOrder\":\"3\",\"Selection\":\"Astralis Talent\",\"Odds\":\"1.712\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"\",\"BaseTierID\":\"0\",\"BaseTierCode\":\"0\",\"BaseTierName\":\"Other\"}]}"
+                )
+        };
+
+        _ = fakeGameApiClient
+             .ReportGetBetLogByIMESportsAsync(
+                 reportUrl: Arg.Is(query.ReportUrl),
+                 merchantCode: Arg.Is(query.MerchantCode),
+                 startDate: Arg.Is(query.StartDate),
+                 endDate: Arg.Is(query.EndDate),
+                 page: Arg.Is(query.Page),
+                 cancellationToken: Arg.Any<CancellationToken>())
+             .Returns(results.ToAsyncEnumerable());
+
+        var client = new GameRecordByIMESportsQueryService(
+            fakeGameApiClient);
+
+        var actual = await client
+            .QueryAsync(
+                query: query)
+            .ToArrayAsync()
+            .ConfigureAwait(false)
+            ?? Enumerable.Empty<GameRecordByIMESportsResult>();
+
+        Assert.True(actual.Any());
+        Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
+        Assert.False(actual.Single().IsSettled);
+        Assert.False(actual.Single().IsCancelled);
+        Assert.False(actual.Single().IsResettled);
+        Assert.Null(actual.Single().ExternalClosedOn);
+    }
+
+    [Fact]
+    public async Task Normal_Process_ParlayAll_12929906_Settlement_Win()
+    {
+        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+
+        var query = new GameRecordByIMESportsQuery(
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+            MerchantPrefix: "IM1S3",
+            StartDate: DateTimeOffset.Parse("2023-04-27T16:33:00+08:00"),
+            EndDate: DateTimeOffset.Parse("2023-04-27T16:43:00+08:00"),
+            Page: 1);
+
+        var results = new ReportGetBetLogByIMESportsResult[]{
+            new ReportGetBetLogByIMESportsResult(
+                GameID: "432368345",
+                BetId: "ESPORTSBULL",
+                WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
+                LastUpdatedDate: "2023-04-27 17:02:03 +08:00".StringConvertToDatetime(),
+                PlayerId: "IM1S3_4ucmqplxb029",
+                StakeAmount: 5m,
+                WinLoss: 0m,
+                IsSettled: "0",
+                IsResettled: "0",
+                IsCancelled: "0",
+                SettlementDateTime: null,
+                AdditionalData: "{\"Provider\":\"ESPORTSBULL_ESPORTS\",\"GameId\":\"ESPORTSBULL\",\"BetId\":\"432368345\",\"WagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"LastUpdatedDate\":\"2023-04-27 17:02:03 +08:00\",\"PlayerId\":\"IM1S3_4ucmqplxb029\",\"ProviderPlayerId\":\"IM1S3IM1S3_4ucmqplxb029\",\"Currency\":\"CNY\",\"StakeAmount\":\"5.000000\",\"WinLoss\":\"0.000000\",\"OddsType\":\"EURO\",\"TotalOdds\":\"34.24\",\"WagerType\":\"ParlayAll\",\"Platform\":\"Web\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsCancelled\":\"0\",\"SettlementDateTime\":\"\",\"Tolerance\":\"255\",\"FlagCategory\":\"\",\"DetailItems\":[{\"ParlaySign\":\"\",\"EventName\":\"eSuba VS Team GO\",\"EventDateTime\":\"2023-04-29 00:00:00 +08:00\",\"CompetitionName\":\"EMEA Masters Spring 2023\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"eSuba\",\"AwayTeamName\":\"Team GO\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"FTScore\":[{\"Option\":\"eSuba\",\"Outcome\":1},{\"Option\":\"Team GO\",\"Outcome\":0}],\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":45,\"SportsName\":\"LEAGUE OF LEGENDS\",\"BetType\":\"BO7 Series Win\",\"EventId\":\"12929906\",\"EventType\":\"BO7\",\"GameOrder\":\"0\",\"Selection\":\"eSuba\",\"Odds\":\"20.0\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"1\",\"BaseTierID\":\"1\",\"BaseTierCode\":\"1\",\"BaseTierName\":\"Tier1\"},{\"ParlaySign\":\"\",\"EventName\":\"Astralis Talent VS Illuminar Gaming\",\"EventDateTime\":\"2023-04-27 17:00:00 +08:00\",\"CompetitionName\":\"CCT Central Europe Series #6\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"Astralis Talent\",\"AwayTeamName\":\"Illuminar Gaming\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":47,\"SportsName\":\"CS:GO\",\"BetType\":\"Game 3 Win\",\"EventId\":\"12957194\",\"EventType\":\"BO3\",\"GameOrder\":\"3\",\"Selection\":\"Astralis Talent\",\"Odds\":\"1.712\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"\",\"BaseTierID\":\"0\",\"BaseTierCode\":\"0\",\"BaseTierName\":\"Other\"}]}"
+                )
+        };
+
+        _ = fakeGameApiClient
+             .ReportGetBetLogByIMESportsAsync(
+                 reportUrl: Arg.Is(query.ReportUrl),
+                 merchantCode: Arg.Is(query.MerchantCode),
+                 startDate: Arg.Is(query.StartDate),
+                 endDate: Arg.Is(query.EndDate),
+                 page: Arg.Is(query.Page),
+                 cancellationToken: Arg.Any<CancellationToken>())
+             .Returns(results.ToAsyncEnumerable());
+
+        var client = new GameRecordByIMESportsQueryService(
+            fakeGameApiClient);
+
+        var actual = await client
+            .QueryAsync(
+                query: query)
+            .ToArrayAsync()
+            .ConfigureAwait(false)
+            ?? Enumerable.Empty<GameRecordByIMESportsResult>();
+
+        Assert.True(actual.Any());
+        Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
+        Assert.False(actual.Single().IsSettled);
+        Assert.False(actual.Single().IsCancelled);
+        Assert.False(actual.Single().IsResettled);
+        Assert.Null(actual.Single().ExternalClosedOn);
+    }
+
+    [Fact]
+    public async Task Normal_Process_ParlayAll_Settlement_Win()
+    {
+        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+
+        var query = new GameRecordByIMESportsQuery(
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+            MerchantPrefix: "IM1S3",
+            StartDate: DateTimeOffset.Parse("2023-04-27T16:33:00+08:00"),
+            EndDate: DateTimeOffset.Parse("2023-04-27T16:43:00+08:00"),
+            Page: 1);
+
+        var results = new ReportGetBetLogByIMESportsResult[]{
+            new ReportGetBetLogByIMESportsResult(
+                GameID: "432368345",
+                BetId: "ESPORTSBULL",
+                WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
+                LastUpdatedDate: "2023-04-27 17:29:08 +08:00".StringConvertToDatetime(),
+                PlayerId: "IM1S3_4ucmqplxb029",
+                StakeAmount: 5m,
+                WinLoss: 166.199997m,
+                IsSettled: "1",
+                IsResettled: "0",
+                IsCancelled: "0",
+                SettlementDateTime:  "2023-04-27 17:29:08 +08:00".StringConvertToDatetime(),
+                AdditionalData: "{\"Provider\":\"ESPORTSBULL_ESPORTS\",\"GameId\":\"ESPORTSBULL\",\"BetId\":\"432368345\",\"WagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"LastUpdatedDate\":\"2023-04-27 17:29:08 +08:00\",\"PlayerId\":\"IM1S3_4ucmqplxb029\",\"ProviderPlayerId\":\"IM1S3IM1S3_4ucmqplxb029\",\"Currency\":\"CNY\",\"StakeAmount\":\"5.000000\",\"WinLoss\":\"166.199997\",\"OddsType\":\"EURO\",\"TotalOdds\":\"34.24\",\"WagerType\":\"ParlayAll\",\"Platform\":\"Web\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsCancelled\":\"0\",\"SettlementDateTime\":\"2023-04-27 17:29:08 +08:00\",\"Tolerance\":\"255\",\"FlagCategory\":\"\",\"DetailItems\":[{\"ParlaySign\":\"\",\"EventName\":\"eSuba VS Team GO\",\"EventDateTime\":\"2023-04-29 00:00:00 +08:00\",\"CompetitionName\":\"EMEA Masters Spring 2023\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"eSuba\",\"AwayTeamName\":\"Team GO\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"FTScore\":[{\"Option\":\"eSuba\",\"Outcome\":1},{\"Option\":\"Team GO\",\"Outcome\":0}],\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":45,\"SportsName\":\"LEAGUE OF LEGENDS\",\"BetType\":\"BO7 Series Win\",\"EventId\":\"12929906\",\"EventType\":\"BO7\",\"GameOrder\":\"0\",\"Selection\":\"eSuba\",\"Odds\":\"20.0\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"1\",\"BaseTierID\":\"1\",\"BaseTierCode\":\"1\",\"BaseTierName\":\"Tier1\"},{\"ParlaySign\":\"\",\"EventName\":\"Astralis Talent VS Illuminar Gaming\",\"EventDateTime\":\"2023-04-27 17:00:00 +08:00\",\"CompetitionName\":\"CCT Central Europe Series #6\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"Astralis Talent\",\"AwayTeamName\":\"Illuminar Gaming\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"FTScore\":[{\"Option\":\"Astralis Talent\",\"Outcome\":1},{\"Option\":\"Illuminar Gaming\",\"Outcome\":0}],\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":47,\"SportsName\":\"CS:GO\",\"BetType\":\"Game 3 Win\",\"EventId\":\"12957194\",\"EventType\":\"BO3\",\"GameOrder\":\"3\",\"Selection\":\"Astralis Talent\",\"Odds\":\"1.712\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"1\",\"BaseTierID\":\"0\",\"BaseTierCode\":\"0\",\"BaseTierName\":\"Other\"}]}"
+                )
+        };
+
+        _ = fakeGameApiClient
+             .ReportGetBetLogByIMESportsAsync(
+                 reportUrl: Arg.Is(query.ReportUrl),
+                 merchantCode: Arg.Is(query.MerchantCode),
+                 startDate: Arg.Is(query.StartDate),
+                 endDate: Arg.Is(query.EndDate),
+                 page: Arg.Is(query.Page),
+                 cancellationToken: Arg.Any<CancellationToken>())
+             .Returns(results.ToAsyncEnumerable());
+
+        var client = new GameRecordByIMESportsQueryService(
+            fakeGameApiClient);
+
+        var actual = await client
+            .QueryAsync(
+                query: query)
+            .ToArrayAsync()
+            .ConfigureAwait(false)
+            ?? Enumerable.Empty<GameRecordByIMESportsResult>();
+
+        Assert.True(actual.Any());
+        Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
+        Assert.True(actual.Single().IsSettled);
+        Assert.False(actual.Single().IsCancelled);
+        Assert.False(actual.Single().IsResettled);
+        Assert.Equal(DateTimeOffset.Parse("2023-04-27 17:29:08 +08:00"), actual.Single().ExternalClosedOn);
+        Assert.Equal(5m, actual.Single().Bet);
+        Assert.Equal(171.199997m, actual.Single().Settle);
+        Assert.Equal(166.199997m, actual.Single().WinLoss);
+    }
+
+    [Fact]
     public async Task Normal_Process_Resettled()
     {
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
         var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
             MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
             MerchantPrefix: "IM1S3",
             StartDate: DateTimeOffset.Parse("2023-04-27T15:56:00+08:00"),
@@ -101,7 +278,7 @@ public class GameRecordQueryServiceUnitTest
 
         _ = fakeGameApiClient
              .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
+                 reportUrl: Arg.Is(query.ReportUrl),
                  merchantCode: Arg.Is(query.MerchantCode),
                  startDate: Arg.Is(query.StartDate),
                  endDate: Arg.Is(query.EndDate),
@@ -137,7 +314,7 @@ public class GameRecordQueryServiceUnitTest
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
         var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
             MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
             MerchantPrefix: "IM1S3",
             StartDate: DateTimeOffset.Parse("2023-04-27T14:12:00+08:00"),
@@ -163,7 +340,7 @@ public class GameRecordQueryServiceUnitTest
 
         _ = fakeGameApiClient
              .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
+                 reportUrl: Arg.Is(query.ReportUrl),
                  merchantCode: Arg.Is(query.MerchantCode),
                  startDate: Arg.Is(query.StartDate),
                  endDate: Arg.Is(query.EndDate),
@@ -199,7 +376,7 @@ public class GameRecordQueryServiceUnitTest
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
         var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
             MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
             MerchantPrefix: "IM1S3",
             StartDate: DateTimeOffset.Parse("2023-04-27T14:12:00+08:00"),
@@ -225,7 +402,7 @@ public class GameRecordQueryServiceUnitTest
 
         _ = fakeGameApiClient
              .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
+                 reportUrl: Arg.Is(query.ReportUrl),
                  merchantCode: Arg.Is(query.MerchantCode),
                  startDate: Arg.Is(query.StartDate),
                  endDate: Arg.Is(query.EndDate),
@@ -261,7 +438,7 @@ public class GameRecordQueryServiceUnitTest
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
         var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+            ReportUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
             MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
             MerchantPrefix: "IM1S3",
             StartDate: DateTimeOffset.Parse("2023-04-27T10:17:00+08:00"),
@@ -287,7 +464,7 @@ public class GameRecordQueryServiceUnitTest
 
         _ = fakeGameApiClient
              .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
+                 reportUrl: Arg.Is(query.ReportUrl),
                  merchantCode: Arg.Is(query.MerchantCode),
                  startDate: Arg.Is(query.StartDate),
                  endDate: Arg.Is(query.EndDate),
@@ -311,182 +488,5 @@ public class GameRecordQueryServiceUnitTest
         Assert.False(actual.Single().IsCancelled);
         Assert.False(actual.Single().IsResettled);
         Assert.Null(actual.Single().ExternalClosedOn);
-    }
-
-    [Fact]
-    public async Task Normal_Process_ParlayAll()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
-
-        var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            StartDate: DateTimeOffset.Parse("2023-04-27T16:33:00+08:00"),
-            EndDate: DateTimeOffset.Parse("2023-04-27T16:43:00+08:00"),
-            Page: 1);
-
-        var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
-                GameID: "432368345",
-                BetId: "ESPORTSBULL",
-                WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
-                LastUpdatedDate: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
-                PlayerId: "IM1S3_4ucmqplxb029",
-                StakeAmount: 5m,
-                WinLoss: 0m,
-                IsSettled: "0",
-                IsResettled: "0",
-                IsCancelled: "0",
-                SettlementDateTime: null,
-                AdditionalData: "{\"Provider\":\"ESPORTSBULL_ESPORTS\",\"GameId\":\"ESPORTSBULL\",\"BetId\":\"432368345\",\"WagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"LastUpdatedDate\":\"2023-04-27 16:33:07 +08:00\",\"PlayerId\":\"IM1S3_4ucmqplxb029\",\"ProviderPlayerId\":\"IM1S3IM1S3_4ucmqplxb029\",\"Currency\":\"CNY\",\"StakeAmount\":\"5.000000\",\"WinLoss\":\"0.000000\",\"OddsType\":\"EURO\",\"TotalOdds\":\"34.24\",\"WagerType\":\"ParlayAll\",\"Platform\":\"Web\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsCancelled\":\"0\",\"SettlementDateTime\":\"\",\"Tolerance\":\"255\",\"FlagCategory\":\"\",\"DetailItems\":[{\"ParlaySign\":\"\",\"EventName\":\"eSuba VS Team GO\",\"EventDateTime\":\"2023-04-29 00:00:00 +08:00\",\"CompetitionName\":\"EMEA Masters Spring 2023\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"eSuba\",\"AwayTeamName\":\"Team GO\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":45,\"SportsName\":\"LEAGUE OF LEGENDS\",\"BetType\":\"BO7 Series Win\",\"EventId\":\"12929906\",\"EventType\":\"BO7\",\"GameOrder\":\"0\",\"Selection\":\"eSuba\",\"Odds\":\"20.0\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"\",\"BaseTierID\":\"1\",\"BaseTierCode\":\"1\",\"BaseTierName\":\"Tier1\"},{\"ParlaySign\":\"\",\"EventName\":\"Astralis Talent VS Illuminar Gaming\",\"EventDateTime\":\"2023-04-27 17:00:00 +08:00\",\"CompetitionName\":\"CCT Central Europe Series #6\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"Astralis Talent\",\"AwayTeamName\":\"Illuminar Gaming\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":47,\"SportsName\":\"CS:GO\",\"BetType\":\"Game 3 Win\",\"EventId\":\"12957194\",\"EventType\":\"BO3\",\"GameOrder\":\"3\",\"Selection\":\"Astralis Talent\",\"Odds\":\"1.712\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"\",\"BaseTierID\":\"0\",\"BaseTierCode\":\"0\",\"BaseTierName\":\"Other\"}]}"
-                )
-        };
-
-        _ = fakeGameApiClient
-             .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
-                 merchantCode: Arg.Is(query.MerchantCode),
-                 startDate: Arg.Is(query.StartDate),
-                 endDate: Arg.Is(query.EndDate),
-                 page: Arg.Is(query.Page),
-                 cancellationToken: Arg.Any<CancellationToken>())
-             .Returns(results.ToAsyncEnumerable());
-
-        var client = new GameRecordByIMESportsQueryService(
-            fakeGameApiClient);
-
-        var actual = await client
-            .QueryAsync(
-                query: query)
-            .ToArrayAsync()
-            .ConfigureAwait(false)
-            ?? Enumerable.Empty<GameRecordByIMESportsResult>();
-
-        Assert.True(actual.Any());
-        Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
-        Assert.False(actual.Single().IsSettled);
-        Assert.False(actual.Single().IsCancelled);
-        Assert.False(actual.Single().IsResettled);
-        Assert.Null(actual.Single().ExternalClosedOn);
-    }
-
-    [Fact]
-    public async Task Normal_Process_ParlayAll_12929906_Settlement_Win()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
-
-        var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            StartDate: DateTimeOffset.Parse("2023-04-27T16:33:00+08:00"),
-            EndDate: DateTimeOffset.Parse("2023-04-27T16:43:00+08:00"),
-            Page: 1);
-
-        var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
-                GameID: "432368345",
-                BetId: "ESPORTSBULL",
-                WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
-                LastUpdatedDate: "2023-04-27 17:02:03 +08:00".StringConvertToDatetime(),
-                PlayerId: "IM1S3_4ucmqplxb029",
-                StakeAmount: 5m,
-                WinLoss: 0m,
-                IsSettled: "0",
-                IsResettled: "0",
-                IsCancelled: "0",
-                SettlementDateTime: null,
-                AdditionalData: "{\"Provider\":\"ESPORTSBULL_ESPORTS\",\"GameId\":\"ESPORTSBULL\",\"BetId\":\"432368345\",\"WagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"LastUpdatedDate\":\"2023-04-27 17:02:03 +08:00\",\"PlayerId\":\"IM1S3_4ucmqplxb029\",\"ProviderPlayerId\":\"IM1S3IM1S3_4ucmqplxb029\",\"Currency\":\"CNY\",\"StakeAmount\":\"5.000000\",\"WinLoss\":\"0.000000\",\"OddsType\":\"EURO\",\"TotalOdds\":\"34.24\",\"WagerType\":\"ParlayAll\",\"Platform\":\"Web\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsCancelled\":\"0\",\"SettlementDateTime\":\"\",\"Tolerance\":\"255\",\"FlagCategory\":\"\",\"DetailItems\":[{\"ParlaySign\":\"\",\"EventName\":\"eSuba VS Team GO\",\"EventDateTime\":\"2023-04-29 00:00:00 +08:00\",\"CompetitionName\":\"EMEA Masters Spring 2023\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"eSuba\",\"AwayTeamName\":\"Team GO\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"FTScore\":[{\"Option\":\"eSuba\",\"Outcome\":1},{\"Option\":\"Team GO\",\"Outcome\":0}],\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":45,\"SportsName\":\"LEAGUE OF LEGENDS\",\"BetType\":\"BO7 Series Win\",\"EventId\":\"12929906\",\"EventType\":\"BO7\",\"GameOrder\":\"0\",\"Selection\":\"eSuba\",\"Odds\":\"20.0\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"1\",\"BaseTierID\":\"1\",\"BaseTierCode\":\"1\",\"BaseTierName\":\"Tier1\"},{\"ParlaySign\":\"\",\"EventName\":\"Astralis Talent VS Illuminar Gaming\",\"EventDateTime\":\"2023-04-27 17:00:00 +08:00\",\"CompetitionName\":\"CCT Central Europe Series #6\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"Astralis Talent\",\"AwayTeamName\":\"Illuminar Gaming\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":47,\"SportsName\":\"CS:GO\",\"BetType\":\"Game 3 Win\",\"EventId\":\"12957194\",\"EventType\":\"BO3\",\"GameOrder\":\"3\",\"Selection\":\"Astralis Talent\",\"Odds\":\"1.712\",\"IsSettled\":\"0\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"\",\"BaseTierID\":\"0\",\"BaseTierCode\":\"0\",\"BaseTierName\":\"Other\"}]}"
-                )
-        };
-
-        _ = fakeGameApiClient
-             .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
-                 merchantCode: Arg.Is(query.MerchantCode),
-                 startDate: Arg.Is(query.StartDate),
-                 endDate: Arg.Is(query.EndDate),
-                 page: Arg.Is(query.Page),
-                 cancellationToken: Arg.Any<CancellationToken>())
-             .Returns(results.ToAsyncEnumerable());
-
-        var client = new GameRecordByIMESportsQueryService(
-            fakeGameApiClient);
-
-        var actual = await client
-            .QueryAsync(
-                query: query)
-            .ToArrayAsync()
-            .ConfigureAwait(false)
-            ?? Enumerable.Empty<GameRecordByIMESportsResult>();
-
-        Assert.True(actual.Any());
-        Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
-        Assert.False(actual.Single().IsSettled);
-        Assert.False(actual.Single().IsCancelled);
-        Assert.False(actual.Single().IsResettled);
-        Assert.Null(actual.Single().ExternalClosedOn);
-    }
-
-    [Fact]
-    public async Task Normal_Process_ParlayAll_Settlement_Win()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
-
-        var query = new GameRecordByIMESportsQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            StartDate: DateTimeOffset.Parse("2023-04-27T16:33:00+08:00"),
-            EndDate: DateTimeOffset.Parse("2023-04-27T16:43:00+08:00"),
-            Page: 1);
-
-        var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
-                GameID: "432368345",
-                BetId: "ESPORTSBULL",
-                WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
-                LastUpdatedDate: "2023-04-27 17:29:08 +08:00".StringConvertToDatetime(),
-                PlayerId: "IM1S3_4ucmqplxb029",
-                StakeAmount: 5m,
-                WinLoss: 166.199997m,
-                IsSettled: "1",
-                IsResettled: "0",
-                IsCancelled: "0",
-                SettlementDateTime:  "2023-04-27 17:29:08 +08:00".StringConvertToDatetime(),
-                AdditionalData: "{\"Provider\":\"ESPORTSBULL_ESPORTS\",\"GameId\":\"ESPORTSBULL\",\"BetId\":\"432368345\",\"WagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"LastUpdatedDate\":\"2023-04-27 17:29:08 +08:00\",\"PlayerId\":\"IM1S3_4ucmqplxb029\",\"ProviderPlayerId\":\"IM1S3IM1S3_4ucmqplxb029\",\"Currency\":\"CNY\",\"StakeAmount\":\"5.000000\",\"WinLoss\":\"166.199997\",\"OddsType\":\"EURO\",\"TotalOdds\":\"34.24\",\"WagerType\":\"ParlayAll\",\"Platform\":\"Web\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsCancelled\":\"0\",\"SettlementDateTime\":\"2023-04-27 17:29:08 +08:00\",\"Tolerance\":\"255\",\"FlagCategory\":\"\",\"DetailItems\":[{\"ParlaySign\":\"\",\"EventName\":\"eSuba VS Team GO\",\"EventDateTime\":\"2023-04-29 00:00:00 +08:00\",\"CompetitionName\":\"EMEA Masters Spring 2023\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"eSuba\",\"AwayTeamName\":\"Team GO\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"FTScore\":[{\"Option\":\"eSuba\",\"Outcome\":1},{\"Option\":\"Team GO\",\"Outcome\":0}],\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":45,\"SportsName\":\"LEAGUE OF LEGENDS\",\"BetType\":\"BO7 Series Win\",\"EventId\":\"12929906\",\"EventType\":\"BO7\",\"GameOrder\":\"0\",\"Selection\":\"eSuba\",\"Odds\":\"20.0\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"1\",\"BaseTierID\":\"1\",\"BaseTierCode\":\"1\",\"BaseTierName\":\"Tier1\"},{\"ParlaySign\":\"\",\"EventName\":\"Astralis Talent VS Illuminar Gaming\",\"EventDateTime\":\"2023-04-27 17:00:00 +08:00\",\"CompetitionName\":\"CCT Central Europe Series #6\",\"ParlayWagerCreationDateTime\":\"2023-04-27 16:33:07 +08:00\",\"HomeTeamName\":\"Astralis Talent\",\"AwayTeamName\":\"Illuminar Gaming\",\"FavTeam\":\"\",\"Period\":\"\",\"HomeTeamHTScore\":\"0\",\"AwayTeamHTScore\":\"0\",\"HomeTeamFTScore\":\"0\",\"AwayTeamFTScore\":\"0\",\"FTScore\":[{\"Option\":\"Astralis Talent\",\"Outcome\":1},{\"Option\":\"Illuminar Gaming\",\"Outcome\":0}],\"WagerHomeTeamScore\":\"0\",\"WagerAwayTeamScore\":\"0\",\"MarketType\":\"\",\"Handicap\":\"0.00\",\"CancelReason\":\"\",\"SportsID\":47,\"SportsName\":\"CS:GO\",\"BetType\":\"Game 3 Win\",\"EventId\":\"12957194\",\"EventType\":\"BO3\",\"GameOrder\":\"3\",\"Selection\":\"Astralis Talent\",\"Odds\":\"1.712\",\"IsSettled\":\"1\",\"IsResettled\":\"0\",\"IsWagerItemCancelled\":\"0\",\"WagerItemCancelType\":\"0\",\"ResultStatus\":\"1\",\"BaseTierID\":\"0\",\"BaseTierCode\":\"0\",\"BaseTierName\":\"Other\"}]}"
-                )
-        };
-
-        _ = fakeGameApiClient
-             .ReportGetBetLogByIMESportsAsync(
-                 apiUrl: Arg.Is(query.ApiUrl),
-                 merchantCode: Arg.Is(query.MerchantCode),
-                 startDate: Arg.Is(query.StartDate),
-                 endDate: Arg.Is(query.EndDate),
-                 page: Arg.Is(query.Page),
-                 cancellationToken: Arg.Any<CancellationToken>())
-             .Returns(results.ToAsyncEnumerable());
-
-        var client = new GameRecordByIMESportsQueryService(
-            fakeGameApiClient);
-
-        var actual = await client
-            .QueryAsync(
-                query: query)
-            .ToArrayAsync()
-            .ConfigureAwait(false)
-            ?? Enumerable.Empty<GameRecordByIMESportsResult>();
-
-        Assert.True(actual.Any());
-        Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
-        Assert.True(actual.Single().IsSettled);
-        Assert.False(actual.Single().IsCancelled);
-        Assert.False(actual.Single().IsResettled);
-        Assert.Equal(DateTimeOffset.Parse("2023-04-27 17:29:08 +08:00"),actual.Single().ExternalClosedOn);
-        Assert.Equal(5m, actual.Single().Bet);
-        Assert.Equal(171.199997m, actual.Single().Settle);
-        Assert.Equal(166.199997m, actual.Single().WinLoss);
     }
 }

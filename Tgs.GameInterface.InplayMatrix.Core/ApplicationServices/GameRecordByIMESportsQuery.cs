@@ -1,7 +1,7 @@
 ﻿namespace Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 
 public record GameRecordByIMESportsQuery(
-    Uri ApiUrl,
+    Uri ReportUrl,
     string MerchantCode,
     string MerchantPrefix,
     DateTimeOffset StartDate,

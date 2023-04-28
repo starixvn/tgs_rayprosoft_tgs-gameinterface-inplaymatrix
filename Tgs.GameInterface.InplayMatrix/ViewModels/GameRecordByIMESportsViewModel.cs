@@ -1,7 +1,7 @@
 ﻿namespace Tgs.GameInterface.InplayMatrix.ViewModels;
 
 public record GameRecordByIMESportsViewModel(
-    Uri ApiUrl,
+    Uri ReportUrl,
     string MerchantCode,
     string MerchantPrefix,
     DateTimeOffset StartDate,

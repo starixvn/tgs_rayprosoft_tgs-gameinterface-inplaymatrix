@@ -15,7 +15,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task No_data_found()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T10:17:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T10:27:00+08:00");
@@ -57,7 +57,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,
@@ -71,7 +71,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task Normal_Process_Cancelled()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T15:56:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T16:00:00+08:00");
@@ -180,7 +180,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,
@@ -198,7 +198,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task Normal_Process_ParlayAll()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T16:10:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T16:20:00+08:00");
@@ -345,7 +345,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,
@@ -363,7 +363,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task Normal_Process_ParlayAll_12929906_Settlement_Win()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T17:02:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T17:03:00+08:00");
@@ -530,7 +530,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,
@@ -548,7 +548,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task Normal_Process_Settlement_Losee()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T14:12:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T14:13:00+08:00");
@@ -667,7 +667,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,
@@ -686,7 +686,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task Normal_Process_Settlement_Win()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T14:12:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T14:13:00+08:00");
@@ -803,7 +803,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,
@@ -822,7 +822,7 @@ public class ReportGetBetLogByIMESportsUnitTest
     [Fact]
     public async Task Normal_Process_Unsettlement()
     {
-        var apiUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
+        var reportUrl = new Uri("http://operatorapi-report.staging.imaegisapi.com/");
         var merchantCode = "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ";
         var startDate = DateTimeOffset.Parse("2023-04-27T10:17:00+08:00");
         var endDate = DateTimeOffset.Parse("2023-04-27T10:27:00+08:00");
@@ -931,7 +931,7 @@ public class ReportGetBetLogByIMESportsUnitTest
 
         var actual = await client
             .ReportGetBetLogByIMESportsAsync(
-                  apiUrl: apiUrl,
+                  reportUrl: reportUrl,
                   merchantCode: merchantCode,
                   startDate: startDate,
                   endDate: endDate,

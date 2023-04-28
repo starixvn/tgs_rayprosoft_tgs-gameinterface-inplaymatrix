@@ -148,7 +148,7 @@ namespace Tgs.GameInterface.InplayMatrix.Controllers
         ///     Post
         ///
         ///         {
-        ///             "apiUrl": "http://operatorapi-report.staging.imaegisapi.com/",
+        ///             "reportUrl": "http://operatorapi-report.staging.imaegisapi.com/",
         ///             "merchantCode": "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
         ///             "merchantPrefix": "IM1S3",
         ///             "startDate": "2023-04-27T00:00:00+08:00",
@@ -162,7 +162,7 @@ namespace Tgs.GameInterface.InplayMatrix.Controllers
             GameRecordByIMESportsViewModel source)
         {
             var query = new GameRecordByIMESportsQuery(
-                ApiUrl: source.ApiUrl,
+                ReportUrl: source.ReportUrl,
                 MerchantCode: source.MerchantCode,
                 MerchantPrefix: source.MerchantPrefix,
                 StartDate: source.StartDate,

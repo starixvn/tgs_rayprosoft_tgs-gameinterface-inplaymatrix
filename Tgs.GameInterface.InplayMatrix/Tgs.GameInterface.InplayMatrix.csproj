@@ -14,6 +14,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Protos\gameinterfaceinplaymatrix.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="FluentdForward.OpenTelemetry.MessagePack" Version="0.2.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.52.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
@@ -34,6 +38,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Tgs.GameInterface.InplayMatrix.Core\Tgs.GameInterface.InplayMatrix.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="Protos\gameinterfaceinplaymatrix.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>

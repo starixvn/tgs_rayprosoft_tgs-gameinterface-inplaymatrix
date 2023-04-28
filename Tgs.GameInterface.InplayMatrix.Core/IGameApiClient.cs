@@ -53,7 +53,7 @@ public interface IGameApiClient
         CancellationToken cancellationToken = default);
 
     public IAsyncEnumerable<ReportGetBetLogByIMESportsResult> ReportGetBetLogByIMESportsAsync(
-        Uri apiUrl,
+        Uri reportUrl,
         string merchantCode,
         DateTimeOffset startDate,
         DateTimeOffset endDate,

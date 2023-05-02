@@ -8,7 +8,7 @@ namespace Tgs.GameInterface.InplayMatrix.Core.UnitTest.ApplicationServices;
 public class GameUrlGetServiceUnitTest
 {
     [Fact]
-    public async Task Normal_Process_IpV6_ffff()
+    public async Task Normal_Process_IpV6()
     {
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
@@ -19,7 +19,7 @@ public class GameUrlGetServiceUnitTest
             PlayerCode: "4ucmqplxb029",
             ProductWallet: 401,
             GameCode: "ESPORTSBULL",
-            IpAddress: "::ffff:172.16.154.200",
+            IpAddress: "eb08:abc5:1bb9:8a21:7724:f3c4:e3de:77f4",
             IsMobile: true,
             Language: "ZH-CN");
 
@@ -33,7 +33,7 @@ public class GameUrlGetServiceUnitTest
                 playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
                 gameCode: Arg.Is(query.GameCode),
                 language: Arg.Is(query.Language),
-                ipAddress: Arg.Is("172.16.154.200"),
+                ipAddress: Arg.Is("227.222.119.244"),
                 productWallet: Arg.Is(query.ProductWallet),
                 cancellationToken: Arg.Any<CancellationToken>())
             .Returns(result);
@@ -61,7 +61,7 @@ public class GameUrlGetServiceUnitTest
     }
 
     [Fact]
-    public async Task Normal_Process_IpV6()
+    public async Task Normal_Process_IpV6_ffff()
     {
         var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
@@ -72,7 +72,7 @@ public class GameUrlGetServiceUnitTest
             PlayerCode: "4ucmqplxb029",
             ProductWallet: 401,
             GameCode: "ESPORTSBULL",
-            IpAddress: "eb08:abc5:1bb9:8a21:7724:f3c4:e3de:77f4",
+            IpAddress: "::ffff:172.16.154.200",
             IsMobile: true,
             Language: "ZH-CN");
 
@@ -86,7 +86,7 @@ public class GameUrlGetServiceUnitTest
                 playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
                 gameCode: Arg.Is(query.GameCode),
                 language: Arg.Is(query.Language),
-                ipAddress: Arg.Is("227.222.119.244"),
+                ipAddress: Arg.Is("172.16.154.200"),
                 productWallet: Arg.Is(query.ProductWallet),
                 cancellationToken: Arg.Any<CancellationToken>())
             .Returns(result);

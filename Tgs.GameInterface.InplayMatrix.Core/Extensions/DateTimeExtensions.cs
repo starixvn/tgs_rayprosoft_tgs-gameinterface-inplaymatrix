@@ -4,7 +4,7 @@ public static class DateTimeExtensions
 {
     public static string DatetimeConvertToString(this DateTimeOffset date)
     {
-        var _timeZone = TimeZoneInfo.CreateCustomTimeZone(id: "China Standard Time", baseUtcOffset: TimeSpan.FromHours(+8), "China Standard Time", "eastern time");
+        var _timeZone = TimeZoneInfo.CreateCustomTimeZone(id: "China Standard Time", baseUtcOffset: TimeSpan.FromHours(+8), "China Standard Time", "China Standard Time");
         return TimeZoneInfo.ConvertTime(date.ToUniversalTime(), _timeZone).ToString("yyyy-MM-dd HH.mm.ss");
     }
 

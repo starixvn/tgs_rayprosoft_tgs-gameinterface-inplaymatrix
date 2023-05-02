@@ -37,7 +37,7 @@ public interface IGameInterfaceInplayMatrixClient
         string transactionId,
         CancellationToken cancellationToken = default);
 
-    IAsyncEnumerable<GameRecordByIMESportsInfo> GameRecordAsync(
+    IAsyncEnumerable<GameRecordByIMESportsInfo> GameRecordByIMESportsAsync(
         Uri reportUrl,
         string merchantCode,
         string merchantPrefix,

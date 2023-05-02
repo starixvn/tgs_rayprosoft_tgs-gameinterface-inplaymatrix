@@ -105,7 +105,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         return reply.State;
     }
 
-    public async IAsyncEnumerable<GameRecordByIMESportsInfo> GameRecordAsync(
+    public async IAsyncEnumerable<GameRecordByIMESportsInfo> GameRecordByIMESportsAsync(
         Uri reportUrl,
         string merchantCode,
         string merchantPrefix,

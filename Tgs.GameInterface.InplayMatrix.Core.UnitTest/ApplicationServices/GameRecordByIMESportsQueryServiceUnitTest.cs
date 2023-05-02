@@ -22,8 +22,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368343",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368343",
                 WagerCreationDateTime: "2023-04-27 15:54:50 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 15:59:47 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -58,7 +58,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
-        Assert.True(actual.Any());
+        Assert.Equal("432368343", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.True(actual.Single().IsSettled);
         Assert.True(actual.Single().IsCancelled);
@@ -84,8 +85,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368345",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368345",
                 WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -120,6 +121,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
+        Assert.Equal("432368345", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.False(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
@@ -142,8 +145,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368345",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368345",
                 WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 17:02:03 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -178,6 +181,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
+        Assert.Equal("432368345", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.False(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
@@ -200,8 +205,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368345",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368345",
                 WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 17:29:08 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -236,6 +241,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
+        Assert.Equal("432368345", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
@@ -261,8 +268,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368343",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368343",
                 WagerCreationDateTime: "2023-04-27 15:54:50 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 16:19:37 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -297,7 +304,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
-        Assert.True(actual.Any());
+        Assert.Equal("432368343", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
@@ -323,8 +331,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368314",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368314",
                 WagerCreationDateTime: "2023-04-27 10:17:30 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 10:17:30 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -359,7 +367,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
-        Assert.True(actual.Any());
+        Assert.Equal("432368314", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
@@ -385,8 +394,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368324",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368324",
                 WagerCreationDateTime: "2023-04-27 13:40:17 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 14:08:13 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -421,7 +430,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
-        Assert.True(actual.Any());
+        Assert.Equal("432368324", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.True(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);
@@ -447,8 +457,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
 
         var results = new ReportGetBetLogByIMESportsResult[]{
             new ReportGetBetLogByIMESportsResult(
-                GameID: "432368314",
-                BetId: "ESPORTSBULL",
+                GameID: "ESPORTSBULL",
+                BetId: "432368314",
                 WagerCreationDateTime: "2023-04-27 10:17:30 +08:00".StringConvertToDatetime(),
                 LastUpdatedDate: "2023-04-27 10:17:30 +08:00".StringConvertToDatetime(),
                 PlayerId: "IM1S3_4ucmqplxb029",
@@ -483,6 +493,8 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
+        Assert.Equal("432368314", actual.Single().ExternalRoundId);
+        Assert.Equal("ESPORTSBULL", actual.Single().ExternalGameId);
         Assert.Equal("4ucmqplxb029", actual.Single().PlayerCode);
         Assert.False(actual.Single().IsSettled);
         Assert.False(actual.Single().IsCancelled);

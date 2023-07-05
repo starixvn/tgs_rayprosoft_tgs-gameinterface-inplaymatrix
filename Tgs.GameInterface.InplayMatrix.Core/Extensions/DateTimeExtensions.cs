@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tgs.GameInterface.InplayMatrix.Core.Extensions;
+﻿namespace Tgs.GameInterface.InplayMatrix.Core.Extensions;
 
 public static class DateTimeExtensions
 {

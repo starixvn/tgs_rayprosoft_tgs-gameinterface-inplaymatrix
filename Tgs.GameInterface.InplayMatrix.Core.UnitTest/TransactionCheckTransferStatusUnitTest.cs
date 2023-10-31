@@ -57,15 +57,14 @@ public class TransactionCheckTransferStatusUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        _ = await Assert.ThrowsAsync<GameInterfaceException>(() => client
-                .TransactionCheckTransferStatus(
-                      apiUrl: apiUrl,
-                      merchantCode: merchantCode,
-                      playerId: playerId,
-                      productWallet: productWallet,
-                      transactionId: transactionId)
-                .AsTask())
-            .ConfigureAwait(false);
+        _ = await Assert.ThrowsAsync<GameInterfaceException>(
+            () => client.TransactionCheckTransferStatus(
+                apiUrl: apiUrl,
+                merchantCode: merchantCode,
+                playerId: playerId,
+                productWallet: productWallet,
+                transactionId: transactionId)
+            .AsTask());
     }
 
     [Fact]
@@ -115,14 +114,12 @@ public class TransactionCheckTransferStatusUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .TransactionCheckTransferStatus(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                productWallet: productWallet,
-                transactionId: transactionId)
-            .ConfigureAwait(false);
+        var actual = await client.TransactionCheckTransferStatus(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            productWallet: productWallet,
+            transactionId: transactionId);
 
         Assert.True(actual);
     }
@@ -174,14 +171,12 @@ public class TransactionCheckTransferStatusUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .TransactionCheckTransferStatus(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                productWallet: productWallet,
-                transactionId: transactionId)
-            .ConfigureAwait(false);
+        var actual = await client.TransactionCheckTransferStatus(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            productWallet: productWallet,
+            transactionId: transactionId);
 
         Assert.True(actual);
     }

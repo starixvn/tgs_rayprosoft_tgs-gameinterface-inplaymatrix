@@ -61,15 +61,13 @@ public class TransactionPerformTransferUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .TransactionPerformTransferAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                productWallet: productWallet,
-                transactionId: transactionId,
-                amount: amount)
-            .ConfigureAwait(false);
+        var actual = await client.TransactionPerformTransferAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            productWallet: productWallet,
+            transactionId: transactionId,
+            amount: amount);
 
         Assert.NotNull(actual);
         Assert.Equal(transactionId, actual.TransactionId);
@@ -125,15 +123,13 @@ public class TransactionPerformTransferUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .TransactionPerformTransferAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                productWallet: productWallet,
-                transactionId: transactionId,
-                amount: amount)
-            .ConfigureAwait(false);
+        var actual = await client.TransactionPerformTransferAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            productWallet: productWallet,
+            transactionId: transactionId,
+            amount: amount);
 
         Assert.NotNull(actual);
         Assert.Equal(transactionId, actual.TransactionId);

@@ -55,16 +55,14 @@ public class GameNewLaunchMobileGameUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .GameNewLaunchMobileGameAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                gameCode: gameCode,
-                language: language,
-                ipAddress: ipAddress,
-                productWallet: productWallet)
-            .ConfigureAwait(false);
+        var actual = await client.GameNewLaunchMobileGameAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            gameCode: gameCode,
+            language: language,
+            ipAddress: ipAddress,
+            productWallet: productWallet);
 
         Assert.NotNull(actual);
         Assert.True(actual.IsPlayerExist);
@@ -115,16 +113,14 @@ public class GameNewLaunchMobileGameUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .GameNewLaunchMobileGameAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                gameCode: gameCode,
-                language: language,
-                ipAddress: ipAddress,
-                productWallet: productWallet)
-            .ConfigureAwait(false);
+        var actual = await client.GameNewLaunchMobileGameAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            gameCode: gameCode,
+            language: language,
+            ipAddress: ipAddress,
+            productWallet: productWallet);
 
         Assert.NotNull(actual);
         Assert.False(actual.IsPlayerExist);

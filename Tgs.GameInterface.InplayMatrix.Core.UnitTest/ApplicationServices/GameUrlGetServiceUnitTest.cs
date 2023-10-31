@@ -41,23 +41,19 @@ public class GameUrlGetServiceUnitTest
         var client = new GameUrlGetService(
             fakeGameApiClient);
 
-        _ = await client
-            .GetAsync(
-               query)
-           .ConfigureAwait(false);
+        _ = await client.GetAsync(query);
 
         _ = await fakeGameApiClient
             .Received(0)
             .GameNewLaunchGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is(query.IpAddress),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .ConfigureAwait(false);
+            apiUrl: Arg.Is(query.ApiUrl),
+            merchantCode: Arg.Is(query.MerchantCode),
+            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+            gameCode: Arg.Is(query.GameCode),
+            language: Arg.Is(query.Language),
+            ipAddress: Arg.Is(query.IpAddress),
+            productWallet: Arg.Is(query.ProductWallet),
+            cancellationToken: Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -94,23 +90,19 @@ public class GameUrlGetServiceUnitTest
         var client = new GameUrlGetService(
             fakeGameApiClient);
 
-        _ = await client
-            .GetAsync(
-               query)
-           .ConfigureAwait(false);
+        _ = await client.GetAsync(query);
 
         _ = await fakeGameApiClient
             .Received(0)
             .GameNewLaunchGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is(query.IpAddress),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .ConfigureAwait(false);
+            apiUrl: Arg.Is(query.ApiUrl),
+            merchantCode: Arg.Is(query.MerchantCode),
+            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+            gameCode: Arg.Is(query.GameCode),
+            language: Arg.Is(query.Language),
+            ipAddress: Arg.Is(query.IpAddress),
+            productWallet: Arg.Is(query.ProductWallet),
+            cancellationToken: Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -147,23 +139,19 @@ public class GameUrlGetServiceUnitTest
         var client = new GameUrlGetService(
             fakeGameApiClient);
 
-        _ = await client
-            .GetAsync(
-               query)
-           .ConfigureAwait(false);
+        _ = await client.GetAsync(query);
 
         _ = await fakeGameApiClient
             .Received(0)
             .GameNewLaunchMobileGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is(query.IpAddress),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .ConfigureAwait(false);
+            apiUrl: Arg.Is(query.ApiUrl),
+            merchantCode: Arg.Is(query.MerchantCode),
+            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+            gameCode: Arg.Is(query.GameCode),
+            language: Arg.Is(query.Language),
+            ipAddress: Arg.Is(query.IpAddress),
+            productWallet: Arg.Is(query.ProductWallet),
+            cancellationToken: Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -200,22 +188,18 @@ public class GameUrlGetServiceUnitTest
         var client = new GameUrlGetService(
             fakeGameApiClient);
 
-        _ = await client
-            .GetAsync(
-               query)
-           .ConfigureAwait(false);
+        _ = await client.GetAsync(query);
 
         _ = await fakeGameApiClient
             .Received(0)
             .GameNewLaunchGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is(query.IpAddress),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .ConfigureAwait(false);
+            apiUrl: Arg.Is(query.ApiUrl),
+            merchantCode: Arg.Is(query.MerchantCode),
+            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+            gameCode: Arg.Is(query.GameCode),
+            language: Arg.Is(query.Language),
+            ipAddress: Arg.Is(query.IpAddress),
+            productWallet: Arg.Is(query.ProductWallet),
+            cancellationToken: Arg.Any<CancellationToken>());
     }
 }

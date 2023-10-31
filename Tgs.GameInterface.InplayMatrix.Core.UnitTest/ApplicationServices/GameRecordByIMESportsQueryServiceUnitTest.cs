@@ -50,11 +50,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -113,11 +111,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -173,11 +169,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -233,11 +227,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -296,11 +288,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -359,11 +349,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -422,11 +410,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());
@@ -485,11 +471,9 @@ public class GameRecordByIMESportsQueryServiceUnitTest
         var client = new GameRecordByIMESportsQueryService(
             fakeGameApiClient);
 
-        var actual = await client
-            .QueryAsync(
-                query: query)
+        var actual = await client.QueryAsync(
+            query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordByIMESportsResult>();
 
         Assert.True(actual.Any());

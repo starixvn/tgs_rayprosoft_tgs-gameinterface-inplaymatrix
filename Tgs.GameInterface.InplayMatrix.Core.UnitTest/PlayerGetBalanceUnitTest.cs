@@ -52,13 +52,11 @@ public class PlayerGetBalanceUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .PlayerGetBalanceAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                productWallet: productWallet)
-            .ConfigureAwait(false);
+        var actual = await client.PlayerGetBalanceAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            productWallet: productWallet);
 
         Assert.NotNull(actual);
         Assert.True(actual.IsPlayerExist);
@@ -102,13 +100,11 @@ public class PlayerGetBalanceUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .PlayerGetBalanceAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                productWallet: productWallet)
-            .ConfigureAwait(false);
+        var actual = await client.PlayerGetBalanceAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            productWallet: productWallet);
 
         Assert.NotNull(actual);
         Assert.False(actual.IsPlayerExist);

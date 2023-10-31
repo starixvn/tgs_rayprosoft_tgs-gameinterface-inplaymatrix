@@ -51,16 +51,14 @@ public class PlayerRegisterUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        _ = await Assert.ThrowsAsync<GameInterfaceException>(()
-            => client
-             .PlayerRegisterAsync(
+        _ = await Assert.ThrowsAsync<GameInterfaceException>(
+            () => client.PlayerRegisterAsync(
                  apiUrl: apiUrl,
                  merchantCode: merchantCode,
                  playerId: playerId,
                  currency: currency,
                  password: password)
-             .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 
     [Fact]
@@ -104,14 +102,12 @@ public class PlayerRegisterUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        await client
-            .PlayerRegisterAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                currency: currency,
-                password: password)
-            .ConfigureAwait(false);
+        await client.PlayerRegisterAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            currency: currency,
+            password: password);
     }
 
     [Fact]
@@ -155,13 +151,11 @@ public class PlayerRegisterUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        await client
-            .PlayerRegisterAsync(
-                apiUrl: apiUrl,
-                merchantCode: merchantCode,
-                playerId: playerId,
-                currency: currency,
-                password: password)
-            .ConfigureAwait(false);
+        await client.PlayerRegisterAsync(
+            apiUrl: apiUrl,
+            merchantCode: merchantCode,
+            playerId: playerId,
+            currency: currency,
+            password: password);
     }
 }

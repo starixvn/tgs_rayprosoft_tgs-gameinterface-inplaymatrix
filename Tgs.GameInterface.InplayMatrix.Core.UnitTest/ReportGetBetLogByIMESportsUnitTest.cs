@@ -55,15 +55,13 @@ public class ReportGetBetLogByIMESportsUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ReportGetBetLogByIMESportsAsync(
-                  reportUrl: reportUrl,
-                  merchantCode: merchantCode,
-                  startDate: startDate,
-                  endDate: endDate,
-                  page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+        var actual = await client.ReportGetBetLogByIMESportsAsync(
+            reportUrl: reportUrl,
+            merchantCode: merchantCode,
+            startDate: startDate,
+            endDate: endDate,
+            page: page)
+            .ToArrayAsync();
 
         Assert.False(actual.Any());
     }
@@ -178,22 +176,19 @@ public class ReportGetBetLogByIMESportsUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ReportGetBetLogByIMESportsAsync(
-                  reportUrl: reportUrl,
-                  merchantCode: merchantCode,
-                  startDate: startDate,
-                  endDate: endDate,
-                  page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+        var actual = await client.ReportGetBetLogByIMESportsAsync(
+            reportUrl: reportUrl,
+            merchantCode: merchantCode,
+            startDate: startDate,
+            endDate: endDate,
+            page: page)
+            .ToArrayAsync();
 
         Assert.NotNull(actual);
         Assert.True(actual.Any());
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("1", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
-        Assert.NotNull(actual.Single().SettlementDateTime);
     }
 
     [Fact]
@@ -344,15 +339,13 @@ public class ReportGetBetLogByIMESportsUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ReportGetBetLogByIMESportsAsync(
-                  reportUrl: reportUrl,
-                  merchantCode: merchantCode,
-                  startDate: startDate,
-                  endDate: endDate,
-                  page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+        var actual = await client.ReportGetBetLogByIMESportsAsync(
+            reportUrl: reportUrl,
+            merchantCode: merchantCode,
+            startDate: startDate,
+            endDate: endDate,
+            page: page)
+            .ToArrayAsync();
 
         Assert.NotNull(actual);
         Assert.True(actual.Any());
@@ -530,15 +523,13 @@ public class ReportGetBetLogByIMESportsUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ReportGetBetLogByIMESportsAsync(
-                  reportUrl: reportUrl,
-                  merchantCode: merchantCode,
-                  startDate: startDate,
-                  endDate: endDate,
-                  page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+        var actual = await client.ReportGetBetLogByIMESportsAsync(
+            reportUrl: reportUrl,
+            merchantCode: merchantCode,
+            startDate: startDate,
+            endDate: endDate,
+            page: page)
+            .ToArrayAsync();
 
         Assert.NotNull(actual);
         Assert.True(actual.Any());
@@ -668,22 +659,19 @@ public class ReportGetBetLogByIMESportsUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ReportGetBetLogByIMESportsAsync(
-                  reportUrl: reportUrl,
-                  merchantCode: merchantCode,
-                  startDate: startDate,
-                  endDate: endDate,
-                  page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+        var actual = await client.ReportGetBetLogByIMESportsAsync(
+            reportUrl: reportUrl,
+            merchantCode: merchantCode,
+            startDate: startDate,
+            endDate: endDate,
+            page: page)
+            .ToArrayAsync();
 
         Assert.NotNull(actual);
         Assert.True(actual.Any());
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
-        Assert.NotNull(actual.Single().SettlementDateTime);
     }
 
     [Fact]
@@ -811,15 +799,13 @@ public class ReportGetBetLogByIMESportsUnitTest
                   startDate: startDate,
                   endDate: endDate,
                   page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+              .ToArrayAsync();
 
         Assert.NotNull(actual);
         Assert.True(actual.Any());
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
-        Assert.NotNull(actual.Single().SettlementDateTime);
     }
 
     [Fact]
@@ -932,15 +918,13 @@ public class ReportGetBetLogByIMESportsUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ReportGetBetLogByIMESportsAsync(
-                  reportUrl: reportUrl,
-                  merchantCode: merchantCode,
-                  startDate: startDate,
-                  endDate: endDate,
-                  page: page)
-              .ToArrayAsync()
-              .ConfigureAwait(false);
+        var actual = await client.ReportGetBetLogByIMESportsAsync(
+            reportUrl: reportUrl,
+            merchantCode: merchantCode,
+            startDate: startDate,
+            endDate: endDate,
+            page: page)
+            .ToArrayAsync();
 
         Assert.NotNull(actual);
         Assert.Equal("0", actual.Single().IsSettled);

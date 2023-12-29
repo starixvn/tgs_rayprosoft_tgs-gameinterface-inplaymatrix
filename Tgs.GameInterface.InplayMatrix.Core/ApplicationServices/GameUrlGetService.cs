@@ -4,20 +4,14 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 
-internal class GameUrlGetService : IGetService<GameUrlQuery, GameUrlResult>
+internal class GameUrlGetService(
+    IGameApiClient client) : IGetService<GameUrlQuery, GameUrlResult>
 {
-    private readonly IGameApiClient _client;
-
-    public GameUrlGetService(IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask<GameUrlResult> GetAsync(GameUrlQuery query, CancellationToken cancellationToken = default)
     {
         var iPAddress = IPAddress.Parse(query.IpAddress);
         var result = query.IsMobile
-            ? await _client
+            ? await client
                 .GameNewLaunchMobileGameAsync(
                     apiUrl: query.ApiUrl,
                     merchantCode: query.MerchantCode,
@@ -28,7 +22,7 @@ internal class GameUrlGetService : IGetService<GameUrlQuery, GameUrlResult>
                     productWallet: query.ProductWallet,
                     cancellationToken: cancellationToken)
                 .ConfigureAwait(false)
-            : await _client
+            : await client
                 .GameNewLaunchGameAsync(
                     apiUrl: query.ApiUrl,
                     merchantCode: query.MerchantCode,

@@ -21,7 +21,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368343",
                 WagerCreationDateTime: "2023-04-27 15:54:50 +08:00".StringConvertToDatetime(),
@@ -82,7 +82,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368345",
                 WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
@@ -140,7 +140,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368345",
                 WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
@@ -198,7 +198,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368345",
                 WagerCreationDateTime: "2023-04-27 16:33:07 +08:00".StringConvertToDatetime(),
@@ -259,7 +259,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368343",
                 WagerCreationDateTime: "2023-04-27 15:54:50 +08:00".StringConvertToDatetime(),
@@ -320,7 +320,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368314",
                 WagerCreationDateTime: "2023-04-27 10:17:30 +08:00".StringConvertToDatetime(),
@@ -381,7 +381,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368324",
                 WagerCreationDateTime: "2023-04-27 13:40:17 +08:00".StringConvertToDatetime(),
@@ -442,7 +442,7 @@ public class GameRecordByIMESportsQueryServiceUnitTest
             Page: 1);
 
         var results = new ReportGetBetLogByIMESportsResult[]{
-            new ReportGetBetLogByIMESportsResult(
+            new(
                 GameID: "ESPORTSBULL",
                 BetId: "432368314",
                 WagerCreationDateTime: "2023-04-27 10:17:30 +08:00".StringConvertToDatetime(),

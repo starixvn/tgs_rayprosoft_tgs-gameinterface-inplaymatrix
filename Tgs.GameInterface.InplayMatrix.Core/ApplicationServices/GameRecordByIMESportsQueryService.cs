@@ -5,20 +5,14 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 
-internal class GameRecordByIMESportsQueryService : IQueryService<GameRecordByIMESportsQuery, GameRecordByIMESportsResult>
+internal class GameRecordByIMESportsQueryService(
+    IGameApiClient client) : IQueryService<GameRecordByIMESportsQuery, GameRecordByIMESportsResult>
 {
-    private readonly IGameApiClient _client;
-
-    public GameRecordByIMESportsQueryService(IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async IAsyncEnumerable<GameRecordByIMESportsResult> QueryAsync(
         GameRecordByIMESportsQuery query,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var results = await _client
+        var results = await client
             .ReportGetBetLogByIMESportsAsync(
                 reportUrl: query.ReportUrl,
                 merchantCode: query.MerchantCode,

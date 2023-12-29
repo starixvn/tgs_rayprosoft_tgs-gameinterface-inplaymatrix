@@ -63,7 +63,7 @@ public class ReportGetBetLogByIMESportsUnitTest
             page: page)
             .ToArrayAsync();
 
-        Assert.False(actual.Any());
+        Assert.Empty(actual);
     }
 
     [Fact]
@@ -185,7 +185,7 @@ public class ReportGetBetLogByIMESportsUnitTest
             .ToArrayAsync();
 
         Assert.NotNull(actual);
-        Assert.True(actual.Any());
+        Assert.NotEmpty(actual);
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("1", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
@@ -348,7 +348,7 @@ public class ReportGetBetLogByIMESportsUnitTest
             .ToArrayAsync();
 
         Assert.NotNull(actual);
-        Assert.True(actual.Any());
+        Assert.NotEmpty(actual);
         Assert.Equal("0", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
@@ -532,7 +532,7 @@ public class ReportGetBetLogByIMESportsUnitTest
             .ToArrayAsync();
 
         Assert.NotNull(actual);
-        Assert.True(actual.Any());
+        Assert.NotEmpty(actual);
         Assert.Equal("0", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
@@ -668,7 +668,7 @@ public class ReportGetBetLogByIMESportsUnitTest
             .ToArrayAsync();
 
         Assert.NotNull(actual);
-        Assert.True(actual.Any());
+        Assert.NotEmpty(actual);
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);
@@ -802,7 +802,7 @@ public class ReportGetBetLogByIMESportsUnitTest
               .ToArrayAsync();
 
         Assert.NotNull(actual);
-        Assert.True(actual.Any());
+        Assert.NotEmpty(actual);
         Assert.Equal("1", actual.Single().IsSettled);
         Assert.Equal("0", actual.Single().IsCancelled);
         Assert.Equal("0", actual.Single().IsResettled);

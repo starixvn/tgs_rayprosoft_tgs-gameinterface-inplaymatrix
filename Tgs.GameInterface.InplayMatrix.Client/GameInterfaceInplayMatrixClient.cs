@@ -4,15 +4,9 @@ using Tgs.GameInterface.InplayMatrix.Protos;
 
 namespace Tgs.GameInterface.InplayMatrix.Client;
 
-internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClient
+internal class GameInterfaceInplayMatrixClient(
+    GameInterfaceInplayMatrix.GameInterfaceInplayMatrixClient client) : IGameInterfaceInplayMatrixClient
 {
-    private readonly GameInterfaceInplayMatrix.GameInterfaceInplayMatrixClient _client;
-
-    public GameInterfaceInplayMatrixClient(GameInterfaceInplayMatrix.GameInterfaceInplayMatrixClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask<string> CheckingServiceAsync(
         string machineName,
         CancellationToken cancellationToken = default)
@@ -22,7 +16,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
             MachineName = machineName,
         };
 
-        var reply = await _client
+        var reply = await client
             .CheckingServiceAsync(
                 request: request,
                 cancellationToken: cancellationToken)
@@ -40,7 +34,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         string transactionId,
         decimal amount,
         CancellationToken cancellationToken = default)
-        => await _client
+        => await client
         .FundInAsync(
             request: new FundRequest
             {
@@ -64,7 +58,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         string transactionId,
         decimal amount,
         CancellationToken cancellationToken = default)
-        => await _client
+        => await client
         .FundOutAsync(
             request: new FundRequest
             {
@@ -88,7 +82,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         string transactionId,
         CancellationToken cancellationToken = default)
     {
-        var reply = await _client
+        var reply = await client
         .FundStatusAsync(
             request: new FundStatusRequest
             {
@@ -124,7 +118,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
             Page = page
         };
 
-        var reply = await _client
+        var reply = await client
             .GameRecordByIMESportsAsync(
                 request: request,
                 cancellationToken: cancellationToken)
@@ -155,7 +149,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         bool isMobile,
         string language,
         CancellationToken cancellationToken = default)
-        => await _client
+        => await client
         .GameUrlAsync(
             request: new GameUrlRequest
             {
@@ -179,7 +173,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         string playerCode,
         int productWallet,
         CancellationToken cancellationToken = default)
-        => await _client
+        => await client
         .PlayerBalanceAsync(
             request: new PlayerBalanceRequest
             {
@@ -200,7 +194,7 @@ internal class GameInterfaceInplayMatrixClient : IGameInterfaceInplayMatrixClien
         string currency,
         string password,
         CancellationToken cancellationToken = default)
-        => _ = await _client
+        => _ = await client
         .PlayerCreateAsync(
             request: new PlayerCreateRequest
             {

@@ -11,22 +11,12 @@ using Tgs.GameInterface.InplayMatrix.Core.Models;
 
 namespace Tgs.GameInterface.InplayMatrix.Core;
 
-internal class GameApiClient : IGameApiClient
+internal class GameApiClient(
+    ILogger<GameApiClient> logger,
+    ISystemClock systemClock,
+    HttpClient client) : IGameApiClient
 {
-    private readonly HttpClient _client;
     private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
-    private readonly ILogger<GameApiClient> _logger;
-    private readonly ISystemClock _systemClock;
-
-    public GameApiClient(
-        ILogger<GameApiClient> logger,
-        ISystemClock systemClock,
-        HttpClient client)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _systemClock = systemClock ?? throw new ArgumentNullException(nameof(systemClock));
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
 
     public async ValueTask<GameNewLaunchGameResult> GameNewLaunchGameAsync(
         Uri apiUrl,
@@ -242,14 +232,14 @@ internal class GameApiClient : IGameApiClient
         {
             if (jsonNode["Code"]!.GetValue<string>().Equals("558", StringComparison.OrdinalIgnoreCase))
             {
-                _logger.LogDebug("{message}({json})", jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+                logger.LogDebug("{message}({json})", jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
                 yield break;
             }
             throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
         }
 
         var result = jsonNode["Result"]!.AsArray();
-        if (!result.Any())
+        if (result.Count == 0)
         {
             yield break;
         }
@@ -324,7 +314,7 @@ internal class GameApiClient : IGameApiClient
             ProductWallet = productWallet,
             TransactionId = transactionId,
             Amount = amount,
-            RequestTime = _systemClock.CurrentTime.DatetimeConvertToString()
+            RequestTime = systemClock.CurrentTime.DatetimeConvertToString()
         };
 
         var jsonNode = await PostAsync(
@@ -354,7 +344,7 @@ internal class GameApiClient : IGameApiClient
         var sw = Stopwatch.StartNew();
         var requestUri = new Uri(apiUrl, path);
         var content = new StringContent(parameters.ToJsonString(), Encoding.UTF8, "application/json");
-        var httpResponseMessage = await _client
+        var httpResponseMessage = await client
             .PostAsync(
                 requestUri: requestUri,
                 content: content,
@@ -384,7 +374,7 @@ internal class GameApiClient : IGameApiClient
             ExecutionTimeMs = (int)sw.ElapsedMilliseconds,
             RecordedOn = DateTimeOffset.UtcNow
         };
-        _logger.LogInformation("{apiLogEvent}", JsonSerializer.Serialize(apiLogEvent));
+        logger.LogInformation("{apiLogEvent}", JsonSerializer.Serialize(apiLogEvent));
 
         _ = httpResponseMessage.EnsureSuccessStatusCode();
 

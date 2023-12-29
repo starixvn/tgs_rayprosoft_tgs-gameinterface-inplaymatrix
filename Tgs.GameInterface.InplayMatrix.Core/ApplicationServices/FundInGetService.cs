@@ -3,19 +3,12 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.InplayMatrix.Core.ApplicationServices;
 
-internal class FundInGetService : IGetService<FundInQuery, FundResult>
+internal class FundInGetService(
+    IGameApiClient client) : IGetService<FundInQuery, FundResult>
 {
-    private readonly IGameApiClient _client;
-
-    public FundInGetService(
-        IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask<FundResult> GetAsync(FundInQuery query, CancellationToken cancellationToken = default)
     {
-        var result = await _client
+        var result = await client
              .TransactionPerformTransferAsync(
                  apiUrl: query.ApiUrl,
                  merchantCode: query.MerchantCode,

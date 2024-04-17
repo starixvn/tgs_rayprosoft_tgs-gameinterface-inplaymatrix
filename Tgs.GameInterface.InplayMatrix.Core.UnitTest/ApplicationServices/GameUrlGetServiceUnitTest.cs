@@ -7,199 +7,199 @@ namespace Tgs.GameInterface.InplayMatrix.Core.UnitTest.ApplicationServices;
 
 public class GameUrlGetServiceUnitTest
 {
-    [Fact]
-    public async Task Normal_Process_IpV6()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+	[Fact]
+	public async Task Normal_Process_IpV6()
+	{
+		var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
-        var query = new GameUrlQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            PlayerCode: "4ucmqplxb029",
-            ProductWallet: 401,
-            GameCode: "ESPORTSBULL",
-            IpAddress: "eb08:abc5:1bb9:8a21:7724:f3c4:e3de:77f4",
-            IsMobile: true,
-            Language: "ZH-CN");
+		var query = new GameUrlQuery(
+			ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+			MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+			MerchantPrefix: "IM1S3",
+			PlayerCode: "4ucmqplxb029",
+			ProductWallet: 401,
+			GameCode: "ESPORTSBULL",
+			IpAddress: "eb08:abc5:1bb9:8a21:7724:f3c4:e3de:77f4",
+			IsMobile: true,
+			Language: "ZH-CN");
 
-        var result = new GameNewLaunchGameResult(
-            IsPlayerExist: true,
-            GameUrl: "https://localhost/");
-        _ = fakeGameApiClient
-            .GameNewLaunchMobileGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is("227.222.119.244"),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(result);
+		var result = new GameNewLaunchGameResult(
+			IsPlayerExist: true,
+			GameUrl: "https://localhost/");
+		_ = fakeGameApiClient
+			.GameNewLaunchMobileGameAsync(
+				apiUrl: Arg.Is(query.ApiUrl),
+				merchantCode: Arg.Is(query.MerchantCode),
+				playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+				gameCode: Arg.Is(query.GameCode),
+				language: Arg.Is(query.Language),
+				ipAddress: Arg.Is("227.222.119.244"),
+				productWallet: Arg.Is(query.ProductWallet),
+				cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(result);
 
-        var client = new GameUrlGetService(
-            fakeGameApiClient);
+		var client = new GameUrlGetService(
+			fakeGameApiClient);
 
-        _ = await client.GetAsync(query);
+		_ = await client.GetAsync(query);
 
-        _ = await fakeGameApiClient
-            .Received(0)
-            .GameNewLaunchGameAsync(
-            apiUrl: Arg.Is(query.ApiUrl),
-            merchantCode: Arg.Is(query.MerchantCode),
-            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-            gameCode: Arg.Is(query.GameCode),
-            language: Arg.Is(query.Language),
-            ipAddress: Arg.Is(query.IpAddress),
-            productWallet: Arg.Is(query.ProductWallet),
-            cancellationToken: Arg.Any<CancellationToken>());
-    }
+		_ = await fakeGameApiClient
+			.Received(0)
+			.GameNewLaunchGameAsync(
+			apiUrl: Arg.Is(query.ApiUrl),
+			merchantCode: Arg.Is(query.MerchantCode),
+			playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+			gameCode: Arg.Is(query.GameCode),
+			language: Arg.Is(query.Language),
+			ipAddress: Arg.Is(query.IpAddress),
+			productWallet: Arg.Is(query.ProductWallet),
+			cancellationToken: Arg.Any<CancellationToken>());
+	}
 
-    [Fact]
-    public async Task Normal_Process_IpV6_ffff()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+	[Fact]
+	public async Task Normal_Process_IpV6_ffff()
+	{
+		var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
-        var query = new GameUrlQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            PlayerCode: "4ucmqplxb029",
-            ProductWallet: 401,
-            GameCode: "ESPORTSBULL",
-            IpAddress: "::ffff:172.16.154.200",
-            IsMobile: true,
-            Language: "ZH-CN");
+		var query = new GameUrlQuery(
+			ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+			MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+			MerchantPrefix: "IM1S3",
+			PlayerCode: "4ucmqplxb029",
+			ProductWallet: 401,
+			GameCode: "ESPORTSBULL",
+			IpAddress: "::ffff:172.16.154.200",
+			IsMobile: true,
+			Language: "ZH-CN");
 
-        var result = new GameNewLaunchGameResult(
-            IsPlayerExist: true,
-            GameUrl: "https://localhost/");
-        _ = fakeGameApiClient
-            .GameNewLaunchMobileGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is("172.16.154.200"),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(result);
+		var result = new GameNewLaunchGameResult(
+			IsPlayerExist: true,
+			GameUrl: "https://localhost/");
+		_ = fakeGameApiClient
+			.GameNewLaunchMobileGameAsync(
+				apiUrl: Arg.Is(query.ApiUrl),
+				merchantCode: Arg.Is(query.MerchantCode),
+				playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+				gameCode: Arg.Is(query.GameCode),
+				language: Arg.Is(query.Language),
+				ipAddress: Arg.Is("172.16.154.200"),
+				productWallet: Arg.Is(query.ProductWallet),
+				cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(result);
 
-        var client = new GameUrlGetService(
-            fakeGameApiClient);
+		var client = new GameUrlGetService(
+			fakeGameApiClient);
 
-        _ = await client.GetAsync(query);
+		_ = await client.GetAsync(query);
 
-        _ = await fakeGameApiClient
-            .Received(0)
-            .GameNewLaunchGameAsync(
-            apiUrl: Arg.Is(query.ApiUrl),
-            merchantCode: Arg.Is(query.MerchantCode),
-            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-            gameCode: Arg.Is(query.GameCode),
-            language: Arg.Is(query.Language),
-            ipAddress: Arg.Is(query.IpAddress),
-            productWallet: Arg.Is(query.ProductWallet),
-            cancellationToken: Arg.Any<CancellationToken>());
-    }
+		_ = await fakeGameApiClient
+			.Received(0)
+			.GameNewLaunchGameAsync(
+			apiUrl: Arg.Is(query.ApiUrl),
+			merchantCode: Arg.Is(query.MerchantCode),
+			playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+			gameCode: Arg.Is(query.GameCode),
+			language: Arg.Is(query.Language),
+			ipAddress: Arg.Is(query.IpAddress),
+			productWallet: Arg.Is(query.ProductWallet),
+			cancellationToken: Arg.Any<CancellationToken>());
+	}
 
-    [Fact]
-    public async Task Normal_Process_Mobile_False()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+	[Fact]
+	public async Task Normal_Process_Mobile_False()
+	{
+		var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
-        var query = new GameUrlQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            PlayerCode: "4ucmqplxb029",
-            ProductWallet: 401,
-            GameCode: "ESPORTSBULL",
-            IpAddress: "127.0.0.1",
-            IsMobile: false,
-            Language: "ZH-CN");
+		var query = new GameUrlQuery(
+			ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+			MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+			MerchantPrefix: "IM1S3",
+			PlayerCode: "4ucmqplxb029",
+			ProductWallet: 401,
+			GameCode: "ESPORTSBULL",
+			IpAddress: "127.0.0.1",
+			IsMobile: false,
+			Language: "ZH-CN");
 
-        var result = new GameNewLaunchGameResult(
-            IsPlayerExist: true,
-            GameUrl: "https://localhost/");
-        _ = fakeGameApiClient
-            .GameNewLaunchGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is(query.IpAddress),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(result);
+		var result = new GameNewLaunchGameResult(
+			IsPlayerExist: true,
+			GameUrl: "https://localhost/");
+		_ = fakeGameApiClient
+			.GameNewLaunchGameAsync(
+				apiUrl: Arg.Is(query.ApiUrl),
+				merchantCode: Arg.Is(query.MerchantCode),
+				playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+				gameCode: Arg.Is(query.GameCode),
+				language: Arg.Is(query.Language),
+				ipAddress: Arg.Is(query.IpAddress),
+				productWallet: Arg.Is(query.ProductWallet),
+				cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(result);
 
-        var client = new GameUrlGetService(
-            fakeGameApiClient);
+		var client = new GameUrlGetService(
+			fakeGameApiClient);
 
-        _ = await client.GetAsync(query);
+		_ = await client.GetAsync(query);
 
-        _ = await fakeGameApiClient
-            .Received(0)
-            .GameNewLaunchMobileGameAsync(
-            apiUrl: Arg.Is(query.ApiUrl),
-            merchantCode: Arg.Is(query.MerchantCode),
-            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-            gameCode: Arg.Is(query.GameCode),
-            language: Arg.Is(query.Language),
-            ipAddress: Arg.Is(query.IpAddress),
-            productWallet: Arg.Is(query.ProductWallet),
-            cancellationToken: Arg.Any<CancellationToken>());
-    }
+		_ = await fakeGameApiClient
+			.Received(0)
+			.GameNewLaunchMobileGameAsync(
+			apiUrl: Arg.Is(query.ApiUrl),
+			merchantCode: Arg.Is(query.MerchantCode),
+			playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+			gameCode: Arg.Is(query.GameCode),
+			language: Arg.Is(query.Language),
+			ipAddress: Arg.Is(query.IpAddress),
+			productWallet: Arg.Is(query.ProductWallet),
+			cancellationToken: Arg.Any<CancellationToken>());
+	}
 
-    [Fact]
-    public async Task Normal_Process_Mobile_True()
-    {
-        var fakeGameApiClient = Substitute.For<IGameApiClient>();
+	[Fact]
+	public async Task Normal_Process_Mobile_True()
+	{
+		var fakeGameApiClient = Substitute.For<IGameApiClient>();
 
-        var query = new GameUrlQuery(
-            ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
-            MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
-            MerchantPrefix: "IM1S3",
-            PlayerCode: "4ucmqplxb029",
-            ProductWallet: 401,
-            GameCode: "ESPORTSBULL",
-            IpAddress: "127.0.0.1",
-            IsMobile: true,
-            Language: "ZH-CN");
+		var query = new GameUrlQuery(
+			ApiUrl: new Uri("http://operatorapi.staging.imaegisapi.com/"),
+			MerchantCode: "OfL5H2hKOIP9tHp9ZIoqYeggJtFC39zQ",
+			MerchantPrefix: "IM1S3",
+			PlayerCode: "4ucmqplxb029",
+			ProductWallet: 401,
+			GameCode: "ESPORTSBULL",
+			IpAddress: "127.0.0.1",
+			IsMobile: true,
+			Language: "ZH-CN");
 
-        var result = new GameNewLaunchGameResult(
-            IsPlayerExist: true,
-            GameUrl: "https://localhost/");
-        _ = fakeGameApiClient
-            .GameNewLaunchMobileGameAsync(
-                apiUrl: Arg.Is(query.ApiUrl),
-                merchantCode: Arg.Is(query.MerchantCode),
-                playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-                gameCode: Arg.Is(query.GameCode),
-                language: Arg.Is(query.Language),
-                ipAddress: Arg.Is(query.IpAddress),
-                productWallet: Arg.Is(query.ProductWallet),
-                cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(result);
+		var result = new GameNewLaunchGameResult(
+			IsPlayerExist: true,
+			GameUrl: "https://localhost/");
+		_ = fakeGameApiClient
+			.GameNewLaunchMobileGameAsync(
+				apiUrl: Arg.Is(query.ApiUrl),
+				merchantCode: Arg.Is(query.MerchantCode),
+				playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+				gameCode: Arg.Is(query.GameCode),
+				language: Arg.Is(query.Language),
+				ipAddress: Arg.Is(query.IpAddress),
+				productWallet: Arg.Is(query.ProductWallet),
+				cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(result);
 
-        var client = new GameUrlGetService(
-            fakeGameApiClient);
+		var client = new GameUrlGetService(
+			fakeGameApiClient);
 
-        _ = await client.GetAsync(query);
+		_ = await client.GetAsync(query);
 
-        _ = await fakeGameApiClient
-            .Received(0)
-            .GameNewLaunchGameAsync(
-            apiUrl: Arg.Is(query.ApiUrl),
-            merchantCode: Arg.Is(query.MerchantCode),
-            playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
-            gameCode: Arg.Is(query.GameCode),
-            language: Arg.Is(query.Language),
-            ipAddress: Arg.Is(query.IpAddress),
-            productWallet: Arg.Is(query.ProductWallet),
-            cancellationToken: Arg.Any<CancellationToken>());
-    }
+		_ = await fakeGameApiClient
+			.Received(0)
+			.GameNewLaunchGameAsync(
+			apiUrl: Arg.Is(query.ApiUrl),
+			merchantCode: Arg.Is(query.MerchantCode),
+			playerId: Arg.Is(query.PlayerCode.ToPlayerid(query.MerchantPrefix)),
+			gameCode: Arg.Is(query.GameCode),
+			language: Arg.Is(query.Language),
+			ipAddress: Arg.Is(query.IpAddress),
+			productWallet: Arg.Is(query.ProductWallet),
+			cancellationToken: Arg.Any<CancellationToken>());
+	}
 }

@@ -5,206 +5,206 @@ using Tgs.GameInterface.InplayMatrix.Protos;
 namespace Tgs.GameInterface.InplayMatrix.Client;
 
 internal class GameInterfaceInplayMatrixClient(
-    GameInterfaceInplayMatrix.GameInterfaceInplayMatrixClient client) : IGameInterfaceInplayMatrixClient
+	GameInterfaceInplayMatrix.GameInterfaceInplayMatrixClient client) : IGameInterfaceInplayMatrixClient
 {
-    public async ValueTask<string> CheckingServiceAsync(
-        string machineName,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CheckingServiceRequest
-        {
-            MachineName = machineName,
-        };
+	public async ValueTask<string> CheckingServiceAsync(
+		string machineName,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new CheckingServiceRequest
+		{
+			MachineName = machineName,
+		};
 
-        var reply = await client
-            .CheckingServiceAsync(
-                request: request,
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var reply = await client
+			.CheckingServiceAsync(
+				request: request,
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        return reply.MachineName;
-    }
+		return reply.MachineName;
+	}
 
-    public async ValueTask<FundReply> FundInAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string merchantPrefix,
-        string playerCode,
-        int productWallet,
-        string transactionId,
-        decimal amount,
-        CancellationToken cancellationToken = default)
-        => await client
-        .FundInAsync(
-            request: new FundRequest
-            {
-                ApiUrl = apiUrl.ToString(),
-                MerchantCode = merchantCode,
-                MerchantPrefix = merchantPrefix,
-                PlayerCode = playerCode,
-                ProductWallet = productWallet,
-                TransactionId = transactionId,
-                Amount = amount
-            },
-            cancellationToken: cancellationToken)
-        .ConfigureAwait(false);
+	public async ValueTask<FundReply> FundInAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string merchantPrefix,
+		string playerCode,
+		int productWallet,
+		string transactionId,
+		decimal amount,
+		CancellationToken cancellationToken = default)
+		=> await client
+		.FundInAsync(
+			request: new FundRequest
+			{
+				ApiUrl = apiUrl.ToString(),
+				MerchantCode = merchantCode,
+				MerchantPrefix = merchantPrefix,
+				PlayerCode = playerCode,
+				ProductWallet = productWallet,
+				TransactionId = transactionId,
+				Amount = amount
+			},
+			cancellationToken: cancellationToken)
+		.ConfigureAwait(false);
 
-    public async ValueTask<FundReply> FundOutAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string merchantPrefix,
-        string playerCode,
-        int productWallet,
-        string transactionId,
-        decimal amount,
-        CancellationToken cancellationToken = default)
-        => await client
-        .FundOutAsync(
-            request: new FundRequest
-            {
-                ApiUrl = apiUrl.ToString(),
-                MerchantCode = merchantCode,
-                MerchantPrefix = merchantPrefix,
-                PlayerCode = playerCode,
-                ProductWallet = productWallet,
-                TransactionId = transactionId,
-                Amount = amount
-            },
-            cancellationToken: cancellationToken)
-        .ConfigureAwait(false);
+	public async ValueTask<FundReply> FundOutAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string merchantPrefix,
+		string playerCode,
+		int productWallet,
+		string transactionId,
+		decimal amount,
+		CancellationToken cancellationToken = default)
+		=> await client
+		.FundOutAsync(
+			request: new FundRequest
+			{
+				ApiUrl = apiUrl.ToString(),
+				MerchantCode = merchantCode,
+				MerchantPrefix = merchantPrefix,
+				PlayerCode = playerCode,
+				ProductWallet = productWallet,
+				TransactionId = transactionId,
+				Amount = amount
+			},
+			cancellationToken: cancellationToken)
+		.ConfigureAwait(false);
 
-    public async ValueTask<bool> FundStatusAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string merchantPrefix,
-        string playerCode,
-        int productWallet,
-        string transactionId,
-        CancellationToken cancellationToken = default)
-    {
-        var reply = await client
-        .FundStatusAsync(
-            request: new FundStatusRequest
-            {
-                ApiUrl = apiUrl.ToString(),
-                MerchantCode = merchantCode,
-                MerchantPrefix = merchantPrefix,
-                PlayerCode = playerCode,
-                ProductWallet = productWallet,
-                TransactionId = transactionId
-            },
-            cancellationToken: cancellationToken)
-        .ConfigureAwait(false);
+	public async ValueTask<bool> FundStatusAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string merchantPrefix,
+		string playerCode,
+		int productWallet,
+		string transactionId,
+		CancellationToken cancellationToken = default)
+	{
+		var reply = await client
+		.FundStatusAsync(
+			request: new FundStatusRequest
+			{
+				ApiUrl = apiUrl.ToString(),
+				MerchantCode = merchantCode,
+				MerchantPrefix = merchantPrefix,
+				PlayerCode = playerCode,
+				ProductWallet = productWallet,
+				TransactionId = transactionId
+			},
+			cancellationToken: cancellationToken)
+		.ConfigureAwait(false);
 
-        return reply.State;
-    }
+		return reply.State;
+	}
 
-    public async IAsyncEnumerable<GameRecordByIMESportsInfo> GameRecordByIMESportsAsync(
-        Uri reportUrl,
-        string merchantCode,
-        string merchantPrefix,
-        DateTimeOffset startDate,
-        DateTimeOffset endDate,
-        int page,
-        [EnumeratorCancellation] CancellationToken cancellationToken = default)
-    {
-        var request = new GameRecordByIMESportsRequest
-        {
-            ReportUrl = reportUrl.ToString(),
-            MerchantCode = merchantCode,
-            MerchantPrefix = merchantPrefix,
-            StartDate = startDate.ToTimestamp(),
-            EndDate = endDate.ToTimestamp(),
-            Page = page
-        };
+	public async IAsyncEnumerable<GameRecordByIMESportsInfo> GameRecordByIMESportsAsync(
+		Uri reportUrl,
+		string merchantCode,
+		string merchantPrefix,
+		DateTimeOffset startDate,
+		DateTimeOffset endDate,
+		int page,
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
+	{
+		var request = new GameRecordByIMESportsRequest
+		{
+			ReportUrl = reportUrl.ToString(),
+			MerchantCode = merchantCode,
+			MerchantPrefix = merchantPrefix,
+			StartDate = startDate.ToTimestamp(),
+			EndDate = endDate.ToTimestamp(),
+			Page = page
+		};
 
-        var reply = await client
-            .GameRecordByIMESportsAsync(
-                request: request,
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var reply = await client
+			.GameRecordByIMESportsAsync(
+				request: request,
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        var gameRecords = reply.Items
-            ?? Enumerable.Empty<GameRecordByIMESportsInfo>();
+		var gameRecords = reply.Items
+			?? Enumerable.Empty<GameRecordByIMESportsInfo>();
 
-        if (!gameRecords.Any())
-        {
-            yield break;
-        }
+		if (!gameRecords.Any())
+		{
+			yield break;
+		}
 
-        foreach (var gameRecord in gameRecords)
-        {
-            yield return gameRecord;
-        }
-    }
+		foreach (var gameRecord in gameRecords)
+		{
+			yield return gameRecord;
+		}
+	}
 
-    public async ValueTask<GameUrlReply> GameUrlAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string merchantPrefix,
-        string playerCode,
-        int productWallet,
-        string gameCode,
-        string ipAddress,
-        bool isMobile,
-        string language,
-        CancellationToken cancellationToken = default)
-        => await client
-        .GameUrlAsync(
-            request: new GameUrlRequest
-            {
-                ApiUrl = apiUrl.ToString(),
-                MerchantCode = merchantCode,
-                MerchantPrefix = merchantPrefix,
-                PlayerCode = playerCode,
-                ProductWallet = productWallet,
-                GameCode = gameCode,
-                IpAddress = ipAddress,
-                IsMobile = isMobile,
-                Language = language,
-            },
-            cancellationToken: cancellationToken)
-        .ConfigureAwait(false);
+	public async ValueTask<GameUrlReply> GameUrlAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string merchantPrefix,
+		string playerCode,
+		int productWallet,
+		string gameCode,
+		string ipAddress,
+		bool isMobile,
+		string language,
+		CancellationToken cancellationToken = default)
+		=> await client
+		.GameUrlAsync(
+			request: new GameUrlRequest
+			{
+				ApiUrl = apiUrl.ToString(),
+				MerchantCode = merchantCode,
+				MerchantPrefix = merchantPrefix,
+				PlayerCode = playerCode,
+				ProductWallet = productWallet,
+				GameCode = gameCode,
+				IpAddress = ipAddress,
+				IsMobile = isMobile,
+				Language = language,
+			},
+			cancellationToken: cancellationToken)
+		.ConfigureAwait(false);
 
-    public async ValueTask<PlayerBalanceReply> PlayerBalanceAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string merchantPrefix,
-        string playerCode,
-        int productWallet,
-        CancellationToken cancellationToken = default)
-        => await client
-        .PlayerBalanceAsync(
-            request: new PlayerBalanceRequest
-            {
-                ApiUrl = apiUrl.ToString(),
-                MerchantCode = merchantCode,
-                MerchantPrefix = merchantPrefix,
-                PlayerCode = playerCode,
-                ProductWallet = productWallet
-            },
-            cancellationToken: cancellationToken)
-        .ConfigureAwait(false);
+	public async ValueTask<PlayerBalanceReply> PlayerBalanceAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string merchantPrefix,
+		string playerCode,
+		int productWallet,
+		CancellationToken cancellationToken = default)
+		=> await client
+		.PlayerBalanceAsync(
+			request: new PlayerBalanceRequest
+			{
+				ApiUrl = apiUrl.ToString(),
+				MerchantCode = merchantCode,
+				MerchantPrefix = merchantPrefix,
+				PlayerCode = playerCode,
+				ProductWallet = productWallet
+			},
+			cancellationToken: cancellationToken)
+		.ConfigureAwait(false);
 
-    public async ValueTask PlayerCreateAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string merchantPrefix,
-        string playerCode,
-        string currency,
-        string password,
-        CancellationToken cancellationToken = default)
-        => _ = await client
-        .PlayerCreateAsync(
-            request: new PlayerCreateRequest
-            {
-                ApiUrl = apiUrl.ToString(),
-                MerchantCode = merchantCode,
-                MerchantPrefix = merchantPrefix,
-                PlayerCode = playerCode,
-                Currency = currency,
-                Password = password
-            },
-            cancellationToken: cancellationToken)
-        .ConfigureAwait(false);
+	public async ValueTask PlayerCreateAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string merchantPrefix,
+		string playerCode,
+		string currency,
+		string password,
+		CancellationToken cancellationToken = default)
+		=> _ = await client
+		.PlayerCreateAsync(
+			request: new PlayerCreateRequest
+			{
+				ApiUrl = apiUrl.ToString(),
+				MerchantCode = merchantCode,
+				MerchantPrefix = merchantPrefix,
+				PlayerCode = playerCode,
+				Currency = currency,
+				Password = password
+			},
+			cancellationToken: cancellationToken)
+		.ConfigureAwait(false);
 }

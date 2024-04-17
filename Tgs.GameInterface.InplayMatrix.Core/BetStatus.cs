@@ -2,13 +2,13 @@
 
 public enum BetStatus
 {
-    /// <summary>
-    /// The unsettlement
-    /// </summary>
-    Unsettlement = 0,
+	/// <summary>
+	/// The unsettlement
+	/// </summary>
+	Unsettlement = 0,
 
-    /// <summary>
-    /// The settlement
-    /// </summary>
-    Settlement = 1
+	/// <summary>
+	/// The settlement
+	/// </summary>
+	Settlement = 1
 }

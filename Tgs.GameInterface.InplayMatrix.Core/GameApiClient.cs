@@ -12,372 +12,374 @@ using Tgs.GameInterface.InplayMatrix.Core.Models;
 namespace Tgs.GameInterface.InplayMatrix.Core;
 
 internal class GameApiClient(
-    ILogger<GameApiClient> logger,
-    ISystemClock systemClock,
-    HttpClient client) : IGameApiClient
+	ILogger<GameApiClient> logger,
+	ISystemClock systemClock,
+	HttpClient client) : IGameApiClient
 {
-    private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
+	private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
 
-    public async ValueTask<GameNewLaunchGameResult> GameNewLaunchGameAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        string gameCode,
-        string language,
-        string ipAddress,
-        int productWallet,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            GameCode = gameCode,
-            Language = language,
-            IpAddress = ipAddress,
-            ProductWallet = productWallet
-        };
+	public async ValueTask<GameNewLaunchGameResult> GameNewLaunchGameAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		string gameCode,
+		string language,
+		string ipAddress,
+		int productWallet,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			GameCode = gameCode,
+			Language = language,
+			IpAddress = ipAddress,
+			ProductWallet = productWallet
+		};
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Game/NewLaunchGame",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "NewLaunchGame",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Game/NewLaunchGame",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "NewLaunchGame",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
-            ? !jsonNode["Code"]!.GetValue<string>().Equals("504", StringComparison.OrdinalIgnoreCase)
-                ? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
-                : new GameNewLaunchGameResult(
-                    IsPlayerExist: false,
-                    GameUrl: string.Empty)
-            : new GameNewLaunchGameResult(
-                IsPlayerExist: true,
-                GameUrl: jsonNode["GameUrl"]!.GetValue<string>());
-    }
+		return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
+			? !jsonNode["Code"]!.GetValue<string>().Equals("504", StringComparison.OrdinalIgnoreCase)
+				? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
+				: new GameNewLaunchGameResult(
+					IsPlayerExist: false,
+					GameUrl: string.Empty)
+			: new GameNewLaunchGameResult(
+				IsPlayerExist: true,
+				GameUrl: jsonNode["GameUrl"]!.GetValue<string>());
+	}
 
-    public async ValueTask<GameNewLaunchGameResult> GameNewLaunchMobileGameAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        string gameCode,
-        string language,
-        string ipAddress,
-        int productWallet,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            GameCode = gameCode,
-            Language = language,
-            IpAddress = ipAddress,
-            ProductWallet = productWallet
-        };
+	public async ValueTask<GameNewLaunchGameResult> GameNewLaunchMobileGameAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		string gameCode,
+		string language,
+		string ipAddress,
+		int productWallet,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			GameCode = gameCode,
+			Language = language,
+			IpAddress = ipAddress,
+			ProductWallet = productWallet
+		};
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Game/NewLaunchMobileGame",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "NewLaunchMobileGame",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Game/NewLaunchMobileGame",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "NewLaunchMobileGame",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
-            ? !jsonNode["Code"]!.GetValue<string>().Equals("504", StringComparison.OrdinalIgnoreCase)
-                ? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
-                : new GameNewLaunchGameResult(
-                    IsPlayerExist: false,
-                    GameUrl: string.Empty)
-            : new GameNewLaunchGameResult(
-                IsPlayerExist: true,
-                GameUrl: jsonNode["GameUrl"]!.GetValue<string>());
-    }
+		return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
+			? !jsonNode["Code"]!.GetValue<string>().Equals("504", StringComparison.OrdinalIgnoreCase)
+				? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
+				: new GameNewLaunchGameResult(
+					IsPlayerExist: false,
+					GameUrl: string.Empty)
+			: new GameNewLaunchGameResult(
+				IsPlayerExist: true,
+				GameUrl: jsonNode["GameUrl"]!.GetValue<string>());
+	}
 
-    public ValueTask<bool> PlayerCheckExistsAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        CancellationToken cancellationToken = default)
-        => throw new NotImplementedException();
+	public ValueTask<bool> PlayerCheckExistsAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		CancellationToken cancellationToken = default)
+		=> throw new NotImplementedException();
 
-    public async ValueTask<PlayerGetBalanceResult> PlayerGetBalanceAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        int productWallet,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            ProductWallet = productWallet,
-        };
+	public async ValueTask<PlayerGetBalanceResult> PlayerGetBalanceAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		int productWallet,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			ProductWallet = productWallet,
+		};
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Player/GetBalance",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "GetBalance",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Player/GetBalance",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "GetBalance",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
-            ? !jsonNode["Code"]!.GetValue<string>().Equals("504", StringComparison.OrdinalIgnoreCase)
-                ? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
-                : new PlayerGetBalanceResult(
-                    IsPlayerExist: false,
-                    Balance: 0,
-                    Currency: string.Empty,
-                    WalletStatus: string.Empty,
-                    ThresholdConfig: string.Empty)
-            : new PlayerGetBalanceResult(
-            IsPlayerExist: true,
-            Balance: decimal.Parse(jsonNode["Balance"]!.GetValue<string>()),
-            Currency: jsonNode["Currency"]!.GetValue<string>(),
-            WalletStatus: jsonNode["WalletStatus"]!.GetValue<string>(),
-            ThresholdConfig: jsonNode["ThresholdConfig"]!.GetValue<string>());
-    }
+		return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
+			? !jsonNode["Code"]!.GetValue<string>().Equals("504", StringComparison.OrdinalIgnoreCase)
+				? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
+				: new PlayerGetBalanceResult(
+					IsPlayerExist: false,
+					Balance: 0,
+					Currency: string.Empty,
+					WalletStatus: string.Empty,
+					ThresholdConfig: string.Empty)
+			: new PlayerGetBalanceResult(
+			IsPlayerExist: true,
+			Balance: decimal.Parse(jsonNode["Balance"]!.GetValue<string>()),
+			Currency: jsonNode["Currency"]!.GetValue<string>(),
+			WalletStatus: jsonNode["WalletStatus"]!.GetValue<string>(),
+			ThresholdConfig: jsonNode["ThresholdConfig"]!.GetValue<string>());
+	}
 
-    public async ValueTask PlayerRegisterAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        string currency,
-        string password,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            Currency = currency,
-            Password = password,
-        };
+	public async ValueTask PlayerRegisterAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		string currency,
+		string password,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			Currency = currency,
+			Password = password,
+		};
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Player/Register",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "Register",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Player/Register",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "Register",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase) &&
-            !jsonNode["Code"]!.GetValue<string>().Equals("503", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
-        }
-    }
+		if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase) &&
+			!jsonNode["Code"]!.GetValue<string>().Equals("503", StringComparison.OrdinalIgnoreCase))
+		{
+			throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+		}
+	}
 
-    public async ValueTask PlayerResetPasswordAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        string password,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            Password = password,
-        };
+	public async ValueTask PlayerResetPasswordAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		string password,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			Password = password,
+		};
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Player/ResetPassword",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "ResetPassword",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Player/ResetPassword",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "ResetPassword",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
-        }
-    }
+		if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase))
+		{
+			throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+		}
+	}
 
-    public async IAsyncEnumerable<ReportGetBetLogByIMESportsResult> ReportGetBetLogByIMESportsAsync(
-        Uri reportUrl,
-        string merchantCode,
-        DateTimeOffset startDate,
-        DateTimeOffset endDate,
-        int page = 1,
-        [EnumeratorCancellation] CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            StartDate = startDate.DatetimeConvertToString(),
-            EndDate = endDate.DatetimeConvertToString(),
-            Page = page,
-            ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
-            DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
-            Language = "EN"
-        };
+	public async IAsyncEnumerable<ReportGetBetLogByIMESportsResult> ReportGetBetLogByIMESportsAsync(
+		Uri reportUrl,
+		string merchantCode,
+		DateTimeOffset startDate,
+		DateTimeOffset endDate,
+		int page = 1,
+		[EnumeratorCancellation] CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			StartDate = startDate.DatetimeConvertToString(),
+			EndDate = endDate.DatetimeConvertToString(),
+			Page = page,
+			ProductWallet = (int)InplayMatrixProductWallet.IM_eSports_Wallet,
+			DateFilterType = DateFilterType.IMESportsLastUpdatedTime,
+			Language = "EN"
+		};
 
-        var jsonNode = await PostAsync(
-                apiUrl: reportUrl,
-                path: "Report/GetBetLog",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "ResetPassword",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+		var jsonNode = await PostAsync(
+				apiUrl: reportUrl,
+				path: "Report/GetBetLog",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "ResetPassword",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase))
-        {
-            if (jsonNode["Code"]!.GetValue<string>().Equals("558", StringComparison.OrdinalIgnoreCase))
-            {
-                logger.LogDebug("{message}({json})", jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
-                yield break;
-            }
-            throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
-        }
+		if (!jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase))
+		{
+			if (jsonNode["Code"]!.GetValue<string>().Equals("558", StringComparison.OrdinalIgnoreCase))
+			{
+				logger.LogDebug("{message}({json})", jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+				yield break;
+			}
 
-        var result = jsonNode["Result"]!.AsArray();
-        if (result.Count == 0)
-        {
-            yield break;
-        }
+			throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions));
+		}
 
-        foreach (var data in result)
-        {
-            if (data is null)
-            {
-                continue;
-            }
+		var result = jsonNode["Result"]!.AsArray();
+		if (result.Count == 0)
+		{
+			yield break;
+		}
 
-            yield return new ReportGetBetLogByIMESportsResult(
-                    GameID: data["GameId"]!.GetValue<string>(),
-                    BetId: data["BetId"]!.GetValue<string>(),
-                    WagerCreationDateTime: data["WagerCreationDateTime"]!.GetValue<string>().StringConvertToDatetime(),
-                    LastUpdatedDate: data["LastUpdatedDate"]!.GetValue<string>().StringConvertToDatetime(),
-                    PlayerId: data["PlayerId"]!.GetValue<string>(),
-                    StakeAmount: decimal.Parse(data["StakeAmount"]!.GetValue<string>()),
-                    WinLoss: decimal.Parse(data["WinLoss"]!.GetValue<string>()),
-                    IsSettled: data["IsSettled"]!.GetValue<string>(),
-                    IsResettled: data["IsResettled"]!.GetValue<string>(),
-                    IsCancelled: data["IsCancelled"]!.GetValue<string>(),
-                    SettlementDateTime: (string.IsNullOrEmpty(data["SettlementDateTime"]!.GetValue<string>()))
-                        ? null
-                        : data["SettlementDateTime"]!.GetValue<string>().StringConvertToDatetime(),
-                    AdditionalData: data.ToJsonString()); ;
-        }
-    }
+		foreach (var data in result)
+		{
+			if (data is null)
+			{
+				continue;
+			}
 
-    public async ValueTask<bool> TransactionCheckTransferStatus(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        int productWallet,
-        string transactionId,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            ProductWallet = productWallet,
-            TransactionId = transactionId,
-        };
+			yield return new ReportGetBetLogByIMESportsResult(
+					GameID: data["GameId"]!.GetValue<string>(),
+					BetId: data["BetId"]!.GetValue<string>(),
+					WagerCreationDateTime: data["WagerCreationDateTime"]!.GetValue<string>().StringConvertToDatetime(),
+					LastUpdatedDate: data["LastUpdatedDate"]!.GetValue<string>().StringConvertToDatetime(),
+					PlayerId: data["PlayerId"]!.GetValue<string>(),
+					StakeAmount: decimal.Parse(data["StakeAmount"]!.GetValue<string>()),
+					WinLoss: decimal.Parse(data["WinLoss"]!.GetValue<string>()),
+					IsSettled: data["IsSettled"]!.GetValue<string>(),
+					IsResettled: data["IsResettled"]!.GetValue<string>(),
+					IsCancelled: data["IsCancelled"]!.GetValue<string>(),
+					SettlementDateTime: string.IsNullOrEmpty(data["SettlementDateTime"]!.GetValue<string>())
+						? null
+						: data["SettlementDateTime"]!.GetValue<string>().StringConvertToDatetime(),
+					AdditionalData: data.ToJsonString());
+			;
+		}
+	}
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Transaction/CheckTransferStatus",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "PerformTransfer",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+	public async ValueTask<bool> TransactionCheckTransferStatus(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		int productWallet,
+		string transactionId,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			ProductWallet = productWallet,
+			TransactionId = transactionId,
+		};
 
-        return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
-            ? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
-            : true;
-    }
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Transaction/CheckTransferStatus",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "PerformTransfer",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-    public async ValueTask<TransactionPerformTransferResult> TransactionPerformTransferAsync(
-        Uri apiUrl,
-        string merchantCode,
-        string playerId,
-        int productWallet,
-        string transactionId,
-        decimal amount,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new
-        {
-            MerchantCode = merchantCode,
-            PlayerId = playerId,
-            ProductWallet = productWallet,
-            TransactionId = transactionId,
-            Amount = amount,
-            RequestTime = systemClock.CurrentTime.DatetimeConvertToString()
-        };
+		return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
+			? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
+			: true;
+	}
 
-        var jsonNode = await PostAsync(
-                apiUrl: apiUrl,
-                path: "Transaction/PerformTransfer",
-                parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
-                logPrefix: "PerformTransfer",
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+	public async ValueTask<TransactionPerformTransferResult> TransactionPerformTransferAsync(
+		Uri apiUrl,
+		string merchantCode,
+		string playerId,
+		int productWallet,
+		string transactionId,
+		decimal amount,
+		CancellationToken cancellationToken = default)
+	{
+		var request = new
+		{
+			MerchantCode = merchantCode,
+			PlayerId = playerId,
+			ProductWallet = productWallet,
+			TransactionId = transactionId,
+			Amount = amount,
+			RequestTime = systemClock.CurrentTime.DatetimeConvertToString()
+		};
 
-        return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
-            ? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
-            : new TransactionPerformTransferResult(
-                TransactionId: transactionId,
-                Res: jsonNode.ToJsonString(_jsonOptions));
-    }
+		var jsonNode = await PostAsync(
+				apiUrl: apiUrl,
+				path: "Transaction/PerformTransfer",
+				parameters: JsonSerializer.SerializeToNode(request, _jsonOptions)!,
+				logPrefix: "PerformTransfer",
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-    private async ValueTask<JsonNode> PostAsync(
-        Uri apiUrl,
-        string path,
-        JsonNode parameters,
-        string logPrefix,
-        CancellationToken cancellationToken = default)
-    {
-        logPrefix = $"{nameof(GameApiClient)}.{logPrefix}".ToLower();
+		return !jsonNode["Code"]!.GetValue<string>().Equals("0", StringComparison.OrdinalIgnoreCase)
+			? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
+			: new TransactionPerformTransferResult(
+				TransactionId: transactionId,
+				Res: jsonNode.ToJsonString(_jsonOptions));
+	}
 
-        var sw = Stopwatch.StartNew();
-        var requestUri = new Uri(apiUrl, path);
-        var content = new StringContent(parameters.ToJsonString(), Encoding.UTF8, "application/json");
-        var httpResponseMessage = await client
-            .PostAsync(
-                requestUri: requestUri,
-                content: content,
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+	private async ValueTask<JsonNode> PostAsync(
+		Uri apiUrl,
+		string path,
+		JsonNode parameters,
+		string logPrefix,
+		CancellationToken cancellationToken = default)
+	{
+		logPrefix = $"{nameof(GameApiClient)}.{logPrefix}".ToLower();
 
-        sw.Stop();
+		var sw = Stopwatch.StartNew();
+		var requestUri = new Uri(apiUrl, path);
+		var content = new StringContent(parameters.ToJsonString(), Encoding.UTF8, "application/json");
+		var httpResponseMessage = await client
+			.PostAsync(
+				requestUri: requestUri,
+				content: content,
+				cancellationToken: cancellationToken)
+			.ConfigureAwait(false);
 
-        var responseMessage = default(string);
+		sw.Stop();
 
-        using (var sr = new StreamReader(httpResponseMessage.Content.ReadAsStreamAsync(cancellationToken).Result))
-        {
-            responseMessage = await sr.ReadToEndAsync(cancellationToken).ConfigureAwait(false) ?? string.Empty;
-        }
+		var responseMessage = default(string);
 
-        var apiLogEvent = new GameApiLogEvent
-        {
-            Path = httpResponseMessage.RequestMessage?.RequestUri?.AbsoluteUri.NoLongerThan(512) ?? string.Empty,
-            Method = httpResponseMessage.RequestMessage?.Method.ToString().NoLongerThan(8) ?? string.Empty,
-            Prefix = logPrefix,
-            ServerName = Environment.MachineName.NoLongerThan(128),
-            RequestHeaders = httpResponseMessage.RequestMessage?.Headers + httpResponseMessage.RequestMessage?.Content?.Headers?.ToString(),
-            RequestContent = (await content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)).NoLongerThan(4096),
-            ResponseHeaders = httpResponseMessage.Headers.ToString(),
-            ResponseContent = responseMessage.NoLongerThan(4096),
-            ResponseCode = (short)httpResponseMessage.StatusCode,
-            ExecutionTimeMs = (int)sw.ElapsedMilliseconds,
-            RecordedOn = DateTimeOffset.UtcNow
-        };
-        logger.LogInformation("{apiLogEvent}", JsonSerializer.Serialize(apiLogEvent));
+		using (var sr = new StreamReader(httpResponseMessage.Content.ReadAsStreamAsync(cancellationToken).Result))
+		{
+			responseMessage = await sr.ReadToEndAsync(cancellationToken).ConfigureAwait(false) ?? string.Empty;
+		}
 
-        _ = httpResponseMessage.EnsureSuccessStatusCode();
+		var apiLogEvent = new GameApiLogEvent
+		{
+			Path = httpResponseMessage.RequestMessage?.RequestUri?.AbsoluteUri.NoLongerThan(512) ?? string.Empty,
+			Method = httpResponseMessage.RequestMessage?.Method.ToString().NoLongerThan(8) ?? string.Empty,
+			Prefix = logPrefix,
+			ServerName = Environment.MachineName.NoLongerThan(128),
+			RequestHeaders = httpResponseMessage.RequestMessage?.Headers + httpResponseMessage.RequestMessage?.Content?.Headers?.ToString(),
+			RequestContent = (await content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)).NoLongerThan(4096),
+			ResponseHeaders = httpResponseMessage.Headers.ToString(),
+			ResponseContent = responseMessage.NoLongerThan(4096),
+			ResponseCode = (short)httpResponseMessage.StatusCode,
+			ExecutionTimeMs = (int)sw.ElapsedMilliseconds,
+			RecordedOn = DateTimeOffset.UtcNow
+		};
+		logger.LogInformation("{apiLogEvent}", JsonSerializer.Serialize(apiLogEvent));
 
-        return JsonNode.Parse(responseMessage)!;
-    }
+		_ = httpResponseMessage.EnsureSuccessStatusCode();
+
+		return JsonNode.Parse(responseMessage)!;
+	}
 }

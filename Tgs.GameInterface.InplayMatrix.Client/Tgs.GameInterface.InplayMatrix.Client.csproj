@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>Raypro</Authors>
 		<PackageProjectUrl>https://gitlab.com/rayprosoft/tgs-gameinterface-inplaymatrix</PackageProjectUrl>
 		<RepositoryUrl>https://gitlab.com/rayprosoft/tgs-gameinterface-inplaymatrix.git</RepositoryUrl>
@@ -37,12 +37,9 @@
 		<ProjectReference Include="..\Tgs.GameInterface.InplayMatrix.Common\Tgs.GameInterface.InplayMatrix.Common.csproj">
 			<PrivateAssets>all</PrivateAssets>
 		</ProjectReference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Protobuf Include="..\Tgs.GameInterface.InplayMatrix\Protos\gameinterfaceinplaymatrix.proto" GrpcServices="Client">
-			<Link>gameinterfaceinplaymatrix.proto</Link>
-		</Protobuf>
+		<ProjectReference Include="..\Tgs.GameInterface.InplayMatrix.Protos\Tgs.GameInterface.InplayMatrix.Protos.csproj">
+		  <PrivateAssets>all</PrivateAssets>
+		</ProjectReference>
 	</ItemGroup>
 
 </Project>

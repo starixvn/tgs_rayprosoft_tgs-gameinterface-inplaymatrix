@@ -23,7 +23,7 @@ public class FundOutGetServiceUnitTest
 
 		var result = new TransactionPerformTransferResult(
 			TransactionId: query.TransactionId,
-			Res: "{\"Code\":\"0\",\"Message\":\"Successful.\",\"Status\":\"Approved\"}");
+			Resp: "{\"Code\":\"0\",\"Message\":\"Successful.\",\"Status\":\"Approved\"}");
 		_ = fakeGameApiClient
 			 .TransactionPerformTransferAsync(
 				 apiUrl: Arg.Is(query.ApiUrl),

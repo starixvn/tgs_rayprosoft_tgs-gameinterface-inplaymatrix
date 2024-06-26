@@ -2,4 +2,4 @@
 
 public record FundResult(
 	string TransactionId,
-	string Res);
+	string Resp);

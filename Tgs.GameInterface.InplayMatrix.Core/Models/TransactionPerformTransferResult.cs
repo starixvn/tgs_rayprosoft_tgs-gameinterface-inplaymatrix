@@ -2,4 +2,4 @@
 
 public record TransactionPerformTransferResult(
 	string TransactionId,
-	string Res);
+	string Resp);

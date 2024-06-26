@@ -331,7 +331,7 @@ internal class GameApiClient(
 			? throw new GameInterfaceException(jsonNode["Message"]!.GetValue<string>(), jsonNode.ToJsonString(_jsonOptions))
 			: new TransactionPerformTransferResult(
 				TransactionId: transactionId,
-				Res: jsonNode.ToJsonString(_jsonOptions));
+				Resp: jsonNode.ToJsonString(_jsonOptions));
 	}
 
 	private async ValueTask<JsonNode> PostAsync(

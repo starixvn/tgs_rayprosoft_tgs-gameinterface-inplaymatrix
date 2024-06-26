@@ -21,6 +21,6 @@ internal class FundOutGetService(
 
 		return new FundResult(
 			TransactionId: query.TransactionId.ToString(),
-			Res: result.Res);
+			Resp: result.Resp);
 	}
 }

@@ -51,7 +51,7 @@ public class InplayMatrixController : ControllerBase
 
 		return new FundResultViewModel(
 			TransactionId: result.TransactionId,
-			Res: result.Res);
+			Resp: result.Resp);
 	}
 
 	/// <summary>
@@ -96,7 +96,7 @@ public class InplayMatrixController : ControllerBase
 
 		return new FundResultViewModel(
 			TransactionId: result.TransactionId,
-			Res: result.Res);
+			Resp: result.Resp);
 	}
 
 	/// <summary>

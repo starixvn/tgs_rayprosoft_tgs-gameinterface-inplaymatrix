@@ -48,7 +48,7 @@ public class GameInterfaceInplayMatrixGrpcService(
 		return new FundReply
 		{
 			TransactionId = result.TransactionId,
-			Res = result.Res
+			Resp = result.Resp
 		};
 	}
 
@@ -74,7 +74,7 @@ public class GameInterfaceInplayMatrixGrpcService(
 		return new FundReply
 		{
 			TransactionId = result.TransactionId,
-			Res = result.Res
+			Resp = result.Resp
 		};
 	}
 
